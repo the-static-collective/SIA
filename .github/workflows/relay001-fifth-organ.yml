@@ -1,0 +1,106 @@
+name: SIA relay-001 fifth-organ archive
+
+on:
+  push:
+    branches: [experiment/relay001-fifth-organ-archive]
+  pull_request:
+    paths:
+      - 'src/relay-*.mjs'
+      - 'src/vault.mjs'
+      - 'src/cli.mjs'
+      - 'scripts/*relay*.mjs'
+      - 'tests/*relay*.mjs'
+      - '.github/workflows/relay001-fifth-organ.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  five-native-organs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout SIA
+        uses: actions/checkout@v4
+      - name: Checkout pinned proposed webZ fourth organ
+        uses: actions/checkout@v4
+        with:
+          repository: the-static-collective/webZ
+          ref: 8007e6b947df0f56d0f15e78d453f4b31defee9c
+          path: .relay-deps/webZ
+          persist-credentials: false
+      - name: Checkout pinned proposed reLATTE third organ
+        uses: actions/checkout@v4
+        with:
+          repository: the-static-collective/reLATTE
+          ref: 69ddd67eb84049eec7ff8e040c465de078d98def
+          path: .relay-deps/reLATTE
+          persist-credentials: false
+      - name: Checkout pinned proposed GHoT second organ
+        uses: actions/checkout@v4
+        with:
+          repository: the-static-collective/GHoT
+          ref: 9aec1e00667994c7e0dc0e345c5d40d5012fdf8e
+          path: .relay-deps/GHoT
+          persist-credentials: false
+      - name: Checkout pinned LOADOUT first organ
+        uses: actions/checkout@v4
+        with:
+          repository: the-static-collective/LOADOUT
+          ref: 1adcb3d82f736f3ca8329c3c1d0d9eba398d49ee
+          path: .relay-deps/LOADOUT
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Install native reLATTE and bounded media executors
+        run: |
+          cd .relay-deps/reLATTE && npm install --no-audit --no-fund
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg
+          command -v ffprobe
+      - name: Generate synthetic MP3, not user music
+        run: |
+          mkdir -p "$RUNNER_TEMP/relay-packet/source"
+          ffmpeg -v error -f lavfi -i "sine=frequency=440:duration=0.5" -ac 1 -ar 16000 \
+            -codec:a libmp3lame -y "$RUNNER_TEMP/relay-packet/source/song.mp3"
+      - name: Execute LOADOUT bound native GHoT probe
+        run: |
+          SHA="$(sha256sum "$RUNNER_TEMP/relay-packet/source/song.mp3" | cut -d ' ' -f 1)"
+          GHOT_HOME="$RUNNER_TEMP/ghot" python3 .relay-deps/GHoT/ghot/relay001_loadout_probe.py \
+            "$RUNNER_TEMP/relay-packet/source/song.mp3" --sha256 "$SHA" \
+            --loadout-src .relay-deps/LOADOUT/src --ghot-root .relay-deps/GHoT --out "$RUNNER_TEMP/donor"
+      - name: Cross native GHoT evidence through reLATTE RECEIVE HOLD
+        run: |
+          cd .relay-deps/reLATTE
+          node --experimental-strip-types scripts/relay001-ghot-hold.mjs \
+            "$RUNNER_TEMP/donor" "$RUNNER_TEMP/third" "$RUNNER_TEMP/relay-packet/source/song.mp3"
+      - name: Form a four-organ synthetic carrier with native webZ verification
+        run: |
+          node tests/build-synthetic-relay.mjs "$RUNNER_TEMP/relay-packet" \
+            "$RUNNER_TEMP/donor" "$RUNNER_TEMP/third/public" \
+            "$GITHUB_WORKSPACE/.relay-deps/webZ/app/relay-proof.mjs"
+      - name: Verify existing SIA suite and fifth-organ integration
+        run: |
+          RELAY_PACKET="$RUNNER_TEMP/relay-packet" \
+            RELAY_WEBZ_MODULE="$GITHUB_WORKSPACE/.relay-deps/webZ/app/relay-proof.mjs" \
+            npm test
+      - name: Ingest and render SIA fifth-organ history
+        run: |
+          node scripts/ingest-relay.mjs \
+            --packet "$RUNNER_TEMP/relay-packet" \
+            --vault "$RUNNER_TEMP/sia-vault" \
+            --webz-verifier "$GITHUB_WORKSPACE/.relay-deps/webZ/app/relay-proof.mjs" \
+            --observed-at 2026-10-13T15:40:00Z \
+            --out "$RUNNER_TEMP/sia-out"
+          node scripts/render-relay.mjs "$RUNNER_TEMP/sia-out/relay-index.json" "$RUNNER_TEMP/sia-out/index.html"
+          node src/cli.mjs catalog --vault "$RUNNER_TEMP/sia-vault" > "$RUNNER_TEMP/sia-out/catalog.json"
+          node -e "const fs=require('fs');const a=JSON.parse(fs.readFileSync(process.env.RUNNER_TEMP+'/sia-out/catalog.json'));if(a.length!==6||a.filter(x=>x.kind==='relay-entry').length!==5)process.exit(1);"
+          mkdir -p evidence-relay
+          cp "$RUNNER_TEMP/sia-out/"*.json "$RUNNER_TEMP/sia-out/"*.html evidence-relay/
+      - name: Publish synthetic-only archive evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: sia-relay001-synthetic-index
+          path: evidence-relay/
+          if-no-files-found: error
