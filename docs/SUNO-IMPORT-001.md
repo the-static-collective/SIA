@@ -4,7 +4,7 @@
 
 Turn a Suno export that a person has lawfully obtained into a **private raw witness**, a deterministic ordered intake plan and a set of bounded, source-labeled observations usable by the existing Metabolizer. This is an offline ingest adapter, **not** a Suno integration, API client, crawler or media backup service.
 
-## Accepted surfaces
+Compatibility note: Suno's current published help documents per-song and Studio audio exports; it does not document a built-in bulk JSON/CSV catalog export. SIA consumes owner-supplied structured records from an inventory already obtained or prepared. Do not assume those records were authenticated by Suno. See https://help.suno.com/en/articles/13614785.\n\n## Accepted surfaces
 
 - UTF-8 JSON: a top-level array, or exactly one array named `songs`, `clips`, `tracks` or `items`, optionally within `data` or `export`.
 - UTF-8 CSV: a unique nonempty header row and records; quoted commas, escaped quotes, CRLF and embedded newlines are supported.
