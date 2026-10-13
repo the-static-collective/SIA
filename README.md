@@ -49,14 +49,14 @@ The example AI proposal was written for this experiment, not returned by a conne
 
 ## Suno albums — first collected inventory
 
-Five albums (43 tracks listed) were observed in The Static Collective's [Suno profile](https://suno.com/@thestaticcollective) on 2026-10-13 and are committed as immutable-input **observation records** under [`captures/suno/albums/`](captures/suno/README.md). These records preserve album source links, displayed titles and track counts. Release dates, visibility and audio contents were not established.
+Six albums (52 total album track positions) are now committed as immutable-input **observation records** under [`captures/suno/albums/`](captures/suno/README.md). The first five (43 track positions) were observed on The Static Collective's [Suno profile](https://suno.com/@thestaticcollective) on 2026-10-13. The sixth, [*Blue Night Morning*](https://suno.com/album/cab6b253-5f5b-4eb1-ae59-ac74c890b04d), was observed later that day and includes its nine displayed song titles, order and durations. Unobserved release dates, visibility and media rights remain unknown.
 
 ```bash
-npm run ingest:suno          # 5 album observations → content-addressed local .sia vault
+npm run ingest:suno          # 6 album observations → content-addressed local .sia vault
 npm run sia -- catalog       # view source-labeled collection
 ```
 
-The import is local and idempotent; it neither calls Suno nor downloads media. Revisit [the capture inventory](captures/suno/README.md) for links, evidence boundaries and historical snapshot policy. This is the first album-kind capture, **not** a claim that SIA now has a crawler or owner-export integration.
+The import is local and idempotent; it neither calls Suno nor downloads media. Revisit [the capture inventory](captures/suno/README.md) for evidence boundaries and [the Blue Night Morning playlist→album witness](captures/suno/blue-night-morning-history.md) for separately observed creative ordering. This is the first album-kind capture, **not** a claim that SIA now has a crawler or owner-export integration.
 
 ## Ingest your own metadata
 
