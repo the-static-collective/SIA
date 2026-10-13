@@ -1,7 +1,7 @@
 import { assertKeys, boundedString, digest, httpsUrl, record } from './canonical.mjs';
 
 export const OBSERVATION_SCHEMA='sia/observation/v0';
-const kinds=['song','image','video','page','code','text','other'];
+const kinds=['song','album','image','video','page','code','text','other'];
 const methods=['manual-transcription','owner-export','api-response'];
 const rights=['links-only','owned-media','licensed-media'];
 const factKinds=['source-visible','owner-export','owner-note'];
