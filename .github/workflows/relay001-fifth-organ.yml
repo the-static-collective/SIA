@@ -95,6 +95,11 @@ jobs:
             --out "$RUNNER_TEMP/sia-out"
           node scripts/render-relay.mjs "$RUNNER_TEMP/sia-out/relay-index.json" "$RUNNER_TEMP/sia-out/index.html"
           node src/cli.mjs catalog --vault "$RUNNER_TEMP/sia-vault" > "$RUNNER_TEMP/sia-out/catalog.json"
+          OBS_ID="$(node -e "const fs=require('fs');console.log(JSON.parse(fs.readFileSync(process.env.RUNNER_TEMP+'/sia-out/relay-index.json')).sourceObservationId)")"
+          node src/cli.mjs compose "$OBS_ID" --vault "$RUNNER_TEMP/sia-vault" \
+            --mode visual --seed 325 --out "$RUNNER_TEMP/sia-out/visual-recipe.json"
+          node src/cli.mjs prompt "$RUNNER_TEMP/sia-out/visual-recipe.json" \
+            --out "$RUNNER_TEMP/sia-out/visual-ai-prompt.json"
           node -e "const fs=require('fs');const a=JSON.parse(fs.readFileSync(process.env.RUNNER_TEMP+'/sia-out/catalog.json'));if(a.length!==6||a.filter(x=>x.kind==='relay-entry').length!==5)process.exit(1);"
           mkdir -p evidence-relay
           cp "$RUNNER_TEMP/sia-out/"*.json "$RUNNER_TEMP/sia-out/"*.html evidence-relay/
