@@ -47,6 +47,17 @@ node src/cli.mjs compose 'sha256:<HARVESTED_ID>' \
 
 The example AI proposal was written for this experiment, not returned by a connected Suno or image-generation service. It is a **four-scene textual storyboard**, not a rendered image.
 
+## Suno albums — first collected inventory
+
+Five albums (43 tracks listed) were observed in The Static Collective's [Suno profile](https://suno.com/@thestaticcollective) on 2026-10-13 and are committed as immutable-input **observation records** under [`captures/suno/albums/`](captures/suno/README.md). These records preserve album source links, displayed titles and track counts. Release dates, visibility and audio contents were not established.
+
+```bash
+npm run ingest:suno          # 5 album observations → content-addressed local .sia vault
+npm run sia -- catalog       # view source-labeled collection
+```
+
+The import is local and idempotent; it neither calls Suno nor downloads media. Revisit [the capture inventory](captures/suno/README.md) for links, evidence boundaries and historical snapshot policy. This is the first album-kind capture, **not** a claim that SIA now has a crawler or owner-export integration.
+
 ## Ingest your own metadata
 
 Use `examples/rosemary.observation.json` as the contract:
