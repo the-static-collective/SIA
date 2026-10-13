@@ -98,6 +98,15 @@ jobs:
           node -e "const fs=require('fs');const a=JSON.parse(fs.readFileSync(process.env.RUNNER_TEMP+'/sia-out/catalog.json'));if(a.length!==6||a.filter(x=>x.kind==='relay-entry').length!==5)process.exit(1);"
           mkdir -p evidence-relay
           cp "$RUNNER_TEMP/sia-out/"*.json "$RUNNER_TEMP/sia-out/"*.html evidence-relay/
+      - name: Package exact public SIA source for local replay
+        run: |
+          tar -czf sia-relay001-source-carrier.tar.gz src scripts tests package.json
+      - name: Upload public code carrier
+        uses: actions/upload-artifact@v4
+        with:
+          name: sia-relay001-source-carrier
+          path: sia-relay001-source-carrier.tar.gz
+          if-no-files-found: error
       - name: Publish synthetic-only archive evidence
         uses: actions/upload-artifact@v4
         with:
