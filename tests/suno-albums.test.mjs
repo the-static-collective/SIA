@@ -57,3 +57,33 @@ test('Suno album importer writes an idempotent local SIA vault', async t => {
   assert.equal(items.length, 6);
   assert.ok(items.every(x => x.artifact.kind === 'album'));
 });
+
+test('Blue Night Morning companion reading remains separately attributed and ingestible', async () => {
+  const source = observation(JSON.parse(await readFile(new URL('../captures/suno/albums/blue-night-morning.observation.json', import.meta.url), 'utf8')));
+  const reading = observation(JSON.parse(await readFile(new URL('../captures/suno/readings/blue-night-morning-ai-reading.observation.json', import.meta.url), 'utf8')));
+  assert.equal(reading.artifact.externalId, source.artifact.externalId);
+  assert.notEqual(reading.id, source.id, 'a later interpretation must not overwrite the original source snapshot');
+  assert.equal(reading.capture.method, 'manual-transcription');
+  assert.equal(reading.capture.rights, 'links-only');
+  assert.ok(reading.interpretations.length >= 9);
+  assert.ok(reading.interpretations.every(x => x.by === 'ai'));
+  assert.equal(reading.facts.filter(f => f.key.endsWith('_song_url')).length, 9);
+  assert.equal(reading.facts.filter(f => f.key.endsWith('_displayed_style')).length, 9);
+  assert.ok(reading.facts.every(f => f.basis === 'source-visible'));
+  assert.equal(source.facts.filter(f => f.key.startsWith('track_') && f.key.endsWith('_duration'))
+    .reduce((sum, f) => {
+      const [m, s] = f.value.split(':').map(Number);
+      return sum + m * 60 + s;
+    }, 0), 1610, '26:50 must be derived from the 9 album-page durations');
+
+  const dir = await mkdtemp(join(tmpdir(), 'sia-reading-'));
+  try {
+    const { ingest } = await import('../src/vault.mjs');
+    const a = await ingest(dir, source);
+    const b = await ingest(dir, reading);
+    assert.notEqual(a.id, b.id);
+    assert.equal((await catalog(dir)).length, 2, 'same album may have two distinct snapshots');
+  } finally {
+    await rm(dir, { recursive: true, force: true });
+  }
+});
