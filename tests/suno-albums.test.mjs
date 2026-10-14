@@ -79,8 +79,12 @@ test('Blue Night Morning companion reading remains separately attributed and ing
   const dir = await mkdtemp(join(tmpdir(), 'sia-reading-'));
   try {
     const { ingest } = await import('../src/vault.mjs');
-    const a = await ingest(dir, source);
-    const b = await ingest(dir, reading);
+    const { id: sourceId, ...sourceBody } = source;
+    const { id: readingId, ...readingBody } = reading;
+    const a = await ingest(dir, sourceBody);
+    const b = await ingest(dir, readingBody);
+    assert.equal(a.id, sourceId);
+    assert.equal(b.id, readingId);
     assert.notEqual(a.id, b.id);
     assert.equal((await catalog(dir)).length, 2, 'same album may have two distinct snapshots');
   } finally {
