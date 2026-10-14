@@ -38,3 +38,13 @@ npm run sia -- catalog
 To choose a different local vault, use `npm run ingest:suno -- --vault /path/to/vault`. Rerunning the import is idempotent; previously recorded, identical observations remain content-addressed. SIA vaults are git-ignored and local; the **committed observation JSON files** provide the portable archive seed.
 
 All six albums have `artifact.kind = "album"`. Their title tokens can feed SIA's existing deterministic composition recipes, but a track count is not an audio analysis. New observations from later visits should be recorded as **new time-stamped snapshots**, not overwrite this historical capture.
+
+## AI-authored album interpretation — independent of source captures
+
+The [Blue Night Morning curatorial reading](blue-night-morning-curatorial-reading.md) records a proposed two-sided LP arc, nine song-level lyric/style notes and mathematically derived duration totals. This is a **separately authored proposal**, not a replacement for or an amendment to the six source album observations. The [companion machine-readable record](readings/blue-night-morning-ai-reading.observation.json) marks displayed song links/genre tags as source-visible facts and artistic readings as `by: "ai"`; it is **not** imported by the six-album collection command unless separately requested.
+
+```bash
+npm run sia -- ingest captures/suno/readings/blue-night-morning-ai-reading.observation.json --vault .sia
+```
+
+The prior six-album tally remains six **distinct album sources**; this is another time-stamped observation of the already listed album, not a seventh release.
