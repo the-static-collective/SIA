@@ -46,3 +46,9 @@ A dated, machine-readable observation is saved at [`albums/blue-night-morning.ob
 **Interpretive note (not a source fact):** At the title level, the sequence opens close to home, moves through landscape and current, and returns to a domestic image. This is only a reading of the names, not audio analysis.
 
 Archive principle: **sequence is an observed relationship; the listener's interpretation is another particular. Neither is proof of technical ancestry or intent.**
+
+## Later companion reading (not a historical source edit)
+
+A separate [assistant-authored LP/lyric reading](blue-night-morning-curatorial-reading.md) reviews the nine linked public song pages, proposes a two-sided 14:03 / 12:47 structure and computes **26:50** by adding displayed track lengths. It explicitly distinguishes observed text/style metadata from the assistant's interpretation and does **not** claim an audio audition. Its [AI-labeled observation](readings/blue-night-morning-ai-reading.observation.json) is separately ingestible without altering the original source snapshot.
+
+A subsequent read-only view of the **same shared playlist link** also displayed nine tracks in album order. This is evidence of a later observed page state only; it does not establish an edit trail or a playlist-to-album conversion. Preserve the earlier five-song witness above as recorded.
