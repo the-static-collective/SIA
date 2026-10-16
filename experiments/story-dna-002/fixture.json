@@ -1,0 +1,77 @@
+{
+  "schema": "story-dna/fixture/v0",
+  "status": "SYNTHETIC-ADAPTATION-FROM-PUBLIC-UNADMITTED-STORY-PROPOSALS",
+  "note": "Summaries are new working interpretations of two draft story seeds, not quoted canon; neither source has granted character crossover rights.",
+  "threads": [
+    {
+      "schema": "story-dna/relationship-thread/v0",
+      "key": "neri-forecloser-passenger-right-to-choose",
+      "title": "The train without an imposed ending",
+      "world": "UNFINISHED BUSINESS — Case Zero (draft)",
+      "source": {
+        "locator": "https://github.com/the-static-collective/lemonPRESS/blob/7465597674b0f1561ad4e354ef9817a1d0d187b4/proposals/unfinished-business-manga-001.md",
+        "revision": "7465597674b0f1561ad4e354ef9817a1d0d187b4",
+        "basis": "Interpretation of the six-page authored manga proposal, especially the train passengers and blank ticket.",
+        "classification": "proposal",
+        "visibility": "public",
+        "rights": "unverified"
+      },
+      "participants": [
+        "Neri Vale",
+        "Passengers of the unfinished train"
+      ],
+      "arc": {
+        "desire": "allow the passengers to complete or continue by their own choice",
+        "relationship": "protection without possession of another person's future",
+        "conflict": "the Forecloser orders an ending without asking those inside",
+        "choice": "leave the destination blank and make room for individual decisions",
+        "consequence": "the train unfolds and the case retains a truthful record",
+        "remainder": "which possible future survives an ending imposed by someone else?"
+      },
+      "constraints": [
+        "no character can decide another's destination merely by recognizing the case",
+        "release does not erase history"
+      ],
+      "controls": {
+        "fictional": true,
+        "analogyAllowed": true,
+        "characterCrossingAllowed": false
+      }
+    },
+    {
+      "schema": "story-dna/relationship-thread/v0",
+      "key": "renji-rats-door-refusal",
+      "title": "A door that cannot command anyone",
+      "world": "THE ROOM INSIDE THE ROOM (incubating multimedia seed)",
+      "source": {
+        "locator": "https://app.gitbook.com/s/HILTtUulCBDqDzXXk6RQ/the-pet-sitter-featured-story-seed/the-room-inside-the-room-multimedia-project-seed",
+        "revision": "GitBook page YOaPU4jrJFIXFal6hIr7, read 2026-10-16; immutable revision not independently recovered",
+        "basis": "Interpretation of the bounded two-rat doorway example and the explicit crossing-availability constraint.",
+        "classification": "proposal",
+        "visibility": "public",
+        "rights": "unverified"
+      },
+      "participants": [
+        "Renji",
+        "Two rats separated by an experimental habitat"
+      ],
+      "arc": {
+        "desire": "make a possible route available for animals to reunite",
+        "relationship": "a maker's responsibility to offer passage without treating passengers as commands",
+        "conflict": "the engine constructs a door while one rat waits for the other",
+        "choice": "leave the passage available without forcing a crossing",
+        "consequence": "waiting itself changes what the human helpers notice",
+        "remainder": "what does a route mean when the person or animal it serves refuses to move?"
+      },
+      "constraints": [
+        "passage availability does not imply perception, consent, or crossing",
+        "the animal's refusal is a meaningful action"
+      ],
+      "controls": {
+        "fictional": true,
+        "analogyAllowed": true,
+        "characterCrossingAllowed": false
+      }
+    }
+  ]
+}
