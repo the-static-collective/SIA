@@ -101,7 +101,7 @@ export function navigationProjection(candidate) {
 }
 
 export function panelLoomDraft(candidate) {
-  assert(candidate?.schema === CANDIDATE, 'candidate required');
+  navigationProjection(candidate); // verifies the content ID before presenting a derivative
   return {
     schema: 'panel-loom/v1', workId: candidate.id,
     title: candidate.title, page: '01',
