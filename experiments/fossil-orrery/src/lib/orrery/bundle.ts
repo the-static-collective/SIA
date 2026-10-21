@@ -1,5 +1,5 @@
 import { validateThread } from "./engine.ts";
-import { acceptStored } from "./intake.ts";
+import { acceptStored, hashText } from "./intake.ts";
 
 export const BUNDLE_SCHEMA = "fossil-orrery/vault/v0";
 
@@ -64,9 +64,32 @@ export function readBundle(input: unknown) {
     }
   }
   if (droppedHypotheses) rejected.push(`${droppedHypotheses} hypothesis records refused — they were not promoted to relations`);
+  const raw: Bundle["raw"] = [];
+  if (!Array.isArray(bundle.raw ?? [])) {
+    rejected.push("Raw snapshot collection refused — expected an array");
+  } else {
+    const seen = new Set<string>();
+    for (const [index, item] of (bundle.raw ?? []).entries()) {
+      if (
+        !item || typeof item.text !== "string" || typeof item.filename !== "string" ||
+        typeof item.sha256 !== "string" || !/^sha256:[a-f0-9]{64}$/.test(item.sha256)
+      ) {
+        rejected.push(`Raw snapshot ${index + 1} refused — missing text, filename, or valid sha256 digest`);
+        continue;
+      }
+      if (hashText(item.text) !== item.sha256) {
+        rejected.push(`Raw snapshot ${index + 1} refused — SHA-256 content mismatch`);
+        continue;
+      }
+      if (!seen.has(item.sha256)) {
+        seen.add(item.sha256);
+        raw.push({ sha256: item.sha256, filename: item.filename, text: item.text });
+      }
+    }
+  }
   return {
     objects,
-    raw: (bundle.raw ?? []).filter((item) => item && typeof item.text === "string" && typeof item.sha256 === "string"),
+    raw,
     hypotheses,
     annotations,
     threads,

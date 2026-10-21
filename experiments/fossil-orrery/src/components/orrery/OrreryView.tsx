@@ -23,21 +23,46 @@ export function OrreryView() {
   const vault = useVault();
   const items = useMemo(() => Object.values(vault.objects).map((obj) => project(obj)), [vault.objects]);
   const edges = useMemo(() => documentedEdges(items, vault.hypotheses), [items, vault.hypotheses]);
-  const [focus, setFocus] = useState<string[] | null>(null);
+  const [focusStack, setFocusStack] = useState<string[][]>([]);
+  const focus = focusStack.at(-1) ?? null;
+  const [viewport, setViewport] = useState({ width: 900, height: 600 });
+  const layout = useMemo(
+    () => layoutSky(items, edges, viewport.width, viewport.height, focus),
+    [items, edges, viewport, focus],
+  );
   const [hovered, setHovered] = useState<string | null>(null);
   const [ledger, setLedger] = useState(false);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const nodesRef = useRef<SkyNode[]>([]);
-  const selected = items.find((item) => item.id === vault.selectedId) ?? null;
+  nodesRef.current = layout.nodes;
+  const selected = useMemo(
+    () => items.find((item) => item.id === vault.selectedId) ?? null,
+    [items, vault.selectedId],
+  );
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const resize = () => {
+      const parent = canvas.parentElement;
+      if (!parent) return;
+      const width = Math.max(1, parent.clientWidth);
+      const height = Math.max(1, parent.clientHeight);
+      setViewport((previous) =>
+        previous.width === width && previous.height === height ? previous : { width, height },
+      );
+    };
+    resize();
+    const observer = new ResizeObserver(resize);
+    if (canvas.parentElement) observer.observe(canvas.parentElement);
+    return () => observer.disconnect();
+  }, [ledger]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const draw = () => {
-      const parent = canvas.parentElement;
-      if (!parent) return;
-      const width = parent.clientWidth;
-      const height = parent.clientHeight;
+      const { width, height } = viewport;
       const dpr = window.devicePixelRatio || 1;
       canvas.width = Math.max(1, Math.floor(width * dpr));
       canvas.height = Math.max(1, Math.floor(height * dpr));
@@ -47,8 +72,6 @@ export function OrreryView() {
       if (!ctx) return;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       const paint = colors();
-      const layout = layoutSky(items, edges, width, height, focus);
-      nodesRef.current = layout.nodes;
       ctx.fillStyle = paint.ink;
       ctx.fillRect(0, 0, width, height);
       ctx.strokeStyle = paint.line;
@@ -59,9 +82,9 @@ export function OrreryView() {
       ctx.fillStyle = paint.mute;
       ctx.font = "12px IBM Plex Mono, ui-monospace, monospace";
       ctx.fillText("OLDEST SOURCE TIME", 16, 22);
-      ctx.fillText("UNDATED", width * 0.78, 22);
+      ctx.fillText("UNDATED", Math.min(width - 70, width * 0.78), 22);
       if (layout.derived) ctx.fillText("LOCAL SELECTION — NOT SOURCE TIME", 16, height - 12);
-      const at = new Map(layout.nodes.flatMap((node) => node.memberIds.map((id) => [id, node])));
+      const at = new Map(layout.nodes.filter((node) => node.count === 1).map((node) => [node.id, node]));
       for (const edge of layout.edges) {
         const a = at.get(edge.from);
         const b = at.get(edge.to);
@@ -80,7 +103,7 @@ export function OrreryView() {
       for (const node of layout.nodes) {
         const hot = node.memberIds.includes(vault.selectedId ?? "") || node.memberIds.some((id) => vault.pins.includes(id));
         ctx.beginPath();
-        ctx.fillStyle = node.band === "undated" ? paint.panel : paint.bone;
+        ctx.fillStyle = node.sourceBand === "undated" ? paint.panel : paint.bone;
         ctx.strokeStyle = hot ? paint.amber : paint.line;
         ctx.lineWidth = hot ? 2 : 1;
         if (node.band === "derived") {
@@ -92,7 +115,7 @@ export function OrreryView() {
         }
         ctx.fill();
         ctx.stroke();
-        if (node.band === "undated") {
+        if (node.sourceBand === "undated") {
           ctx.beginPath();
           ctx.strokeStyle = paint.amber;
           ctx.arc(node.x, node.y, node.r + 3, 0, Math.PI * 2);
@@ -103,13 +126,14 @@ export function OrreryView() {
         if (node.band === "bucket") {
           ctx.fillStyle = paint.ink;
           ctx.font = "11px IBM Plex Mono, ui-monospace, monospace";
-          ctx.fillText(String(node.count), node.x - 6, node.y + 3);
+          const countText = node.count >= 1000 ? `${Math.round(node.count / 100) / 10}k` : String(node.count);
+          ctx.fillText(countText, node.x - ctx.measureText(countText).width / 2, node.y + 3);
         }
       }
       const label = layout.nodes.find((node) => node.id === hovered || node.memberIds.includes(hovered ?? ""));
       if (label) {
         ctx.fillStyle = paint.panel;
-        const text = label.band === "bucket" ? `${label.count} in this stratum` : label.title;
+        const text = label.title;
         const w = Math.min(280, ctx.measureText(text).width + 16);
         ctx.fillRect(Math.min(label.x + 8, width - w - 8), label.y - 22, w, 20);
         ctx.fillStyle = paint.bone;
@@ -117,10 +141,7 @@ export function OrreryView() {
       }
     };
     draw();
-    const observer = new ResizeObserver(draw);
-    if (canvas.parentElement) observer.observe(canvas.parentElement);
-    return () => observer.disconnect();
-  }, [items, edges, focus, hovered, vault.selectedId, vault.pins]);
+  }, [layout, viewport, hovered, vault.selectedId, vault.pins]);
 
   const hit = (event: React.PointerEvent<HTMLCanvasElement>) => {
     const rect = event.currentTarget.getBoundingClientRect();
@@ -133,15 +154,23 @@ export function OrreryView() {
     <div className="flex h-full min-h-0 flex-col md:flex-row">
       <div className="relative min-h-0 flex-1">
         <div className="flex items-center justify-between gap-2 px-3 py-2">
-          <p className="font-mono text-xs text-mute">Oldest first. Solid lines are documented. Dashes are hypotheses or unsigned selections.</p>
+          <p className="font-mono text-xs text-mute">
+            {focus ? `Stratum ${focusStack.length} · ${focus.length} records · ` : `${items.length} records · `}
+            Solid = documented; dashes = hypotheses/selections. Select a cluster to drill in.
+          </p>
           <div className="flex gap-2">
             <button className="btn" data-quiet="true" onClick={() => setLedger((value) => !value)} type="button">
               {ledger ? "Sky" : "Ledger"}
             </button>
             {focus && (
-              <button className="btn" onClick={() => setFocus(null)} type="button">
-                All strata
-              </button>
+              <>
+                <button className="btn" onClick={() => setFocusStack((stack) => stack.slice(0, -1))} type="button">
+                  Back
+                </button>
+                <button className="btn" onClick={() => setFocusStack([])} type="button">
+                  All strata
+                </button>
+              </>
             )}
           </div>
         </div>
@@ -156,7 +185,7 @@ export function OrreryView() {
                 const node = hit(event);
                 if (!node) return;
                 if (node.band === "bucket") {
-                  setFocus(node.memberIds);
+                  setFocusStack((stack) => [...stack, node.memberIds]);
                   return;
                 }
                 vault.select(node.id);
@@ -182,33 +211,86 @@ export function OrreryView() {
 
 function Ledger({ items }: { items: Item[] }) {
   const vault = useVault();
-  const dated = items.filter((item) => item.chrono.kind === "source-claimed").sort((a, b) => a.chrono.sort! - b.chrono.sort!);
-  const undated = items.filter((item) => item.chrono.kind === "unresolved").sort((a, b) => a.title.localeCompare(b.title));
-  const derived = items.filter((item) => item.chrono.kind === "derived");
-  const section = (title: string, rows: Item[]) => (
-    <section>
-      <h3 className="sticky top-0 bg-ink py-2 font-mono text-xs tracking-widest text-amber">{title}</h3>
-      <ul>
-        {rows.map((item) => (
-          <li key={item.id}>
-            <button
-              className="flex min-h-11 w-full items-baseline justify-between gap-3 border-b border-line py-2 text-left"
-              onClick={() => vault.select(item.id)}
-              type="button"
-            >
-              <span className="font-serif text-lg leading-tight">{item.title}</span>
-              <span className="shrink-0 font-mono text-xs text-mute">{item.chrono.kind === "source-claimed" ? item.chrono.label : item.evidence}</span>
-            </button>
-          </li>
-        ))}
-      </ul>
-    </section>
-  );
+  const [query, setQuery] = useState("");
+  const [band, setBand] = useState("all");
+  const [page, setPage] = useState(0);
+  const perPage = 100;
+  const rows = useMemo(() => {
+    const sorted = [...items].sort((a, b) => {
+      const order = { "source-claimed": 0, unresolved: 1, derived: 2 };
+      const delta = order[a.chrono.kind] - order[b.chrono.kind];
+      if (delta) return delta;
+      if (a.chrono.kind === "source-claimed") {
+        const date = (a.chrono.sort ?? 0) - (b.chrono.sort ?? 0);
+        if (date) return date;
+      }
+      return a.title.localeCompare(b.title) || a.id.localeCompare(b.id);
+    });
+    const needle = query.trim().toLocaleLowerCase();
+    return sorted.filter((item) =>
+      (band === "all" || item.chrono.kind === band) &&
+      (!needle || [item.title, item.id, item.url ?? ""].some((field) => field.toLocaleLowerCase().includes(needle))),
+    );
+  }, [items, query, band]);
+  const maxPage = Math.max(0, Math.ceil(rows.length / perPage) - 1);
+  const current = Math.min(page, maxPage);
+  const shown = rows.slice(current * perPage, (current + 1) * perPage);
   return (
-    <div className="h-[calc(100%-3.5rem)] overflow-auto px-4 pb-6">
-      {section("Source-claimed time, oldest first", dated)}
-      {section("Chronology unresolved", undated)}
-      {section("Local selections", derived)}
+    <div className="flex h-[calc(100%-3.5rem)] min-h-0 flex-col px-4 pb-4">
+      <div className="flex flex-wrap items-end gap-3 border-b border-line py-3">
+        <label className="flex min-w-36 flex-1 flex-col gap-1 font-mono text-xs text-mute" htmlFor="fossil-ledger-search">
+          Find title, source locator, or content ID
+          <input
+            className="w-full rounded border border-line bg-panel px-3 py-2 text-bone"
+            id="fossil-ledger-search"
+            onChange={(event) => { setQuery(event.target.value); setPage(0); }}
+            placeholder="Search entire archive"
+            type="search"
+            value={query}
+          />
+        </label>
+        <label className="flex flex-col gap-1 font-mono text-xs text-mute" htmlFor="fossil-ledger-band">
+          Source-time status
+          <select
+            className="rounded border border-line bg-panel px-3 py-2 text-bone"
+            id="fossil-ledger-band"
+            onChange={(event) => { setBand(event.target.value); setPage(0); }}
+            value={band}
+          >
+            <option value="all">Every record</option>
+            <option value="source-claimed">Source-claimed time</option>
+            <option value="unresolved">Chronology unresolved</option>
+            <option value="derived">Local selections</option>
+          </select>
+        </label>
+      </div>
+      <div className="flex items-center justify-between gap-2 py-2 font-mono text-xs text-mute" aria-live="polite">
+        <span>{rows.length} matching · {rows.length ? current * perPage + 1 : 0}–{Math.min((current + 1) * perPage, rows.length)} visible</span>
+        <div className="flex items-center gap-2">
+          <button className="btn" type="button" disabled={current === 0} onClick={() => setPage((value) => Math.max(0, value - 1))}>Previous</button>
+          <span>{current + 1} / {maxPage + 1}</span>
+          <button className="btn" type="button" disabled={current >= maxPage} onClick={() => setPage((value) => value + 1)}>Next</button>
+        </div>
+      </div>
+      <div className="min-h-0 flex-1 overflow-auto">
+        <ul>
+          {shown.map((item) => (
+            <li key={item.id}>
+              <button
+                className="flex min-h-11 w-full items-baseline justify-between gap-3 border-b border-line py-2 text-left"
+                onClick={() => vault.select(item.id)}
+                type="button"
+              >
+                <span className="font-serif text-lg leading-tight">{item.title}</span>
+                <span className="shrink-0 font-mono text-xs text-mute">
+                  {item.chrono.kind === "source-claimed" ? item.chrono.label : item.chrono.kind === "unresolved" ? "UNRESOLVED" : "LOCAL"}
+                </span>
+              </button>
+            </li>
+          ))}
+        </ul>
+        {!rows.length && <p className="py-8 text-mute">No matching records. Source dates were not inferred.</p>}
+      </div>
     </div>
   );
 }

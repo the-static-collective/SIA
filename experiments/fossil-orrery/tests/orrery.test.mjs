@@ -11,7 +11,7 @@ import { composeRelationship } from "../vendor/story-dna/src/relationship-passen
 import { readFileSync } from "node:fs";
 import { syntheticBodies, observedRecords, exampleProposal, UNFAMILIAR_CSV, PORCH_IDS } from "../src/lib/orrery/sample.ts";
 import { chronology, documentedEdges, evidenceClass, makeHypothesis, project } from "../src/lib/orrery/model.ts";
-import { mapRows, sniff, suggestRoles, unresolvedReport } from "../src/lib/orrery/intake.ts";
+import { hashText, mapRows, sniff, suggestRoles, unresolvedReport } from "../src/lib/orrery/intake.ts";
 import { exportBundle, readBundle } from "../src/lib/orrery/bundle.ts";
 import { acceptDraft, reviewDraft, structuralDraft } from "../src/lib/orrery/draft.ts";
 import { clownNote, layoutSky } from "../src/lib/orrery/layout.ts";
@@ -111,7 +111,7 @@ test("vault export round-trips identity and does not promote hypotheses", () => 
   const before = a.relations.map((rel) => ({ ...rel }));
   const bundle = exportBundle({
     objects,
-    raw: { abc: { sha256: "sha256:" + "ab".repeat(32), filename: "raw.json", text: "{\"keep\":true}" } },
+    raw: { abc: { sha256: hashText('{"keep":true}'), filename: "raw.json", text: '{"keep":true}' } },
     hypotheses: [hypothesis, { schema: "fossil-orrery/hypothesis/v0", status: "FACT", basis: "guess" }],
     annotations: [],
     threads: [],
@@ -122,6 +122,8 @@ test("vault export round-trips identity and does not promote hypotheses", () => 
   assert.equal(read.objects.length, 2);
   assert.deepEqual(read.objects.map((item) => item.id).sort(), Object.keys(objects).sort());
   assert.equal(read.hypotheses.length, 1);
+  assert.equal(read.raw.length, 1);
+  assert.equal(read.raw[0].sha256, hashText(read.raw[0].text));
   assert.equal(read.hypotheses[0].status, "HYPOTHESIS");
   assert.equal(read.rejected.length, 1);
   const restored = read.objects.find((item) => item.id === a.id);
@@ -189,7 +191,11 @@ test("orrery keeps thousands addressable and the clown note is not a documented 
   assert.ok(zoomed.nodes.length < 80);
   assert.equal(zoomed.nodes.every((node) => node.band === "bucket"), true);
   const opened = layoutSky(many, [], 1280, 800, zoomed.nodes[0].memberIds);
-  assert.equal(opened.nodes.length, zoomed.nodes[0].memberIds.length);
+  assert.ok(opened.nodes.length <= 64);
+  assert.deepEqual(
+    new Set(opened.nodes.flatMap((node) => node.memberIds)),
+    new Set(zoomed.nodes[0].memberIds),
+  );
   const rosemary = observe(observedRecords.find((item) => item.artifact.externalId === PORCH_IDS.rosemary));
   const porch = observe(observedRecords.find((item) => item.artifact.externalId === PORCH_IDS.porch));
   const items = [project(rosemary), project(porch)];
@@ -217,4 +223,76 @@ test("tampered observations fail identity and interpretations are not facts", ()
   assert.throws(() => verifyObservation(tampered), /digest mismatch/);
   assert.equal(sealed.facts.some((fact) => /rosemary may suggest/i.test(String(fact.value))), false);
   assert.equal(sealed.interpretations.length > 0, true);
+});
+
+
+test("raw snapshot SHA-256 is verified on import; tampered evidence never enters the vault", () => {
+  const text = '{"unicode":"Rosemary 🌹","nul":"\u0000"}';
+  const raw = { filename: "owner-export.json", text, sha256: hashText(text) };
+  const base = { schema: "fossil-orrery/vault/v0", objects: [], hypotheses: [], annotations: [], threads: [], candidates: [], reviews: [] };
+  const valid = readBundle({ ...base, raw: [raw] });
+  assert.equal(valid.raw.length, 1);
+  assert.deepEqual(valid.rejected, []);
+  const corrupt = readBundle({ ...base, raw: [
+    { ...raw, text: text + "!" },
+    { ...raw, sha256: "sha256:" + "0".repeat(64) },
+    { ...raw, sha256: "not-a-digest" },
+    { ...raw, filename: 42 },
+    raw,
+    raw,
+  ] });
+  assert.deepEqual(corrupt.raw, [raw]);
+  assert.equal(corrupt.rejected.length, 4);
+  assert.ok(corrupt.rejected.some((x) => x.includes("mismatch")));
+  assert.ok(corrupt.rejected.every((x) => x.includes("refused")));
+  const malformed = readBundle({ ...base, raw: { item: raw } });
+  assert.equal(malformed.raw.length, 0);
+  assert.match(malformed.rejected.join(" "), /expected an array/);
+});
+
+test("15,000 artifacts remain reachable through deterministic, distinct, band-local strata", () => {
+  const many = Array.from({ length: 15000 }, (_, i) => {
+    const band = i < 12600 ? "unresolved" : i < 14400 ? "source-claimed" : "derived";
+    return {
+      id: `sha256:${i.toString(16).padStart(64, "0")}`,
+      title: `Song ${String(i).padStart(5, "0")}`,
+      kind: "song",
+      url: `https://example.org/owned/${i}`,
+      creator: "synthetic fixture",
+      evidence: "synthetic-fixture",
+      chrono: { kind: band, sort: band === "source-claimed" ? Date.UTC(2010, 0, 1) + i * 86400000 : null, label: band, precision: null },
+      links: [], parentIds: [], facts: [], interpretations: [], capture: null, raw: {},
+    };
+  });
+  const allIds = new Set(many.map((item) => item.id));
+  for (const [width, height] of [[1280, 800], [360, 540]]) {
+    const opened = new Set();
+    const travel = (members, depth = 0) => {
+      assert.ok(depth < 12, "strata must strictly subdivide");
+      const layout = layoutSky(many, [], width, height, members);
+      const coords = new Set(layout.nodes.map((node) => `${node.x.toFixed(5)}:${node.y.toFixed(5)}`));
+      assert.equal(coords.size, layout.nodes.length, "no overlap in visible coordinates");
+      assert.ok(layout.nodes.length <= 3 * 64, "bounded canvas node count");
+      for (const node of layout.nodes) {
+        if (node.band === "bucket") {
+          assert.ok(node.memberIds.length > 1);
+          assert.ok(!members || node.memberIds.length < members.length, "drill-down must reduce the group");
+          const kinds = new Set(node.memberIds.map((id) => many[Number.parseInt(id.slice(7), 16)].chrono.kind));
+          assert.equal(kinds.size, 1, "do not mix unresolved/claimed/derived into one bucket");
+          travel(node.memberIds, depth + 1);
+        } else {
+          assert.equal(node.memberIds.length, 1);
+          assert.equal(opened.has(node.id), false, "one source must not appear in two strata");
+          opened.add(node.id);
+        }
+      }
+    };
+    travel(null);
+    assert.deepEqual(opened, allIds);
+    const result = layoutSky(many, [], width, height, null);
+    assert.equal(result.undated, 12600);
+    assert.equal(result.dated, 1800);
+    assert.equal(result.derived, 600);
+    assert.deepEqual(result.nodes.map(({ id, x, y }) => [id, x, y]), layoutSky(many, [], width, height, null).nodes.map(({ id, x, y }) => [id, x, y]));
+  }
 });
