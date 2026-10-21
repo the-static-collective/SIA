@@ -1,0 +1,29 @@
+name: FISHBONE Browser Smoke
+
+on:
+  pull_request:
+    paths:
+      - 'tools/fishbone/**'
+      - '.github/workflows/fishbone-browser-smoke.yml'
+      - 'src/**'
+      - 'package.json'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  browser-smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install optional Playwright browser adapter
+        run: npm install --no-save --no-package-lock playwright
+      - name: Install Chromium and Linux runtime libraries
+        run: npx playwright install --with-deps chromium
+      - name: Run isolated live-browser smoke against example.org
+        run: node tools/fishbone/smoke-live.mjs
