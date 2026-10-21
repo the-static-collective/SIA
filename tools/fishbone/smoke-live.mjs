@@ -75,6 +75,7 @@ try {
     outcome: 'PASS', browser: 'Playwright Chromium (real browser visit)',
     source: url, robots: 'checked by FISHBONE before navigation',
     captures: 2, comparison: pair.verdict,
+    comparisonDetails: fixture ? undefined : pair.changes,
     history: history.entries.map(e => e.comparisonStatus),
     pageTitle: newer.title, visibleTextLength: newer.visibleText.length,
     beforeContentSha256: older.contentSha256, afterContentSha256: newer.contentSha256,
