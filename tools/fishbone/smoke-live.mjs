@@ -13,8 +13,9 @@ import { mkdtemp, readFile, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 
-const url = 'https://example.org/';
-const domain = 'example.org';
+const url = process.env.FISHBONE_SMOKE_URL || 'https://example.org/';
+const domain = new URL(url).hostname;
+const fixture = url === 'https://example.org/';
 const root = await mkdtemp(join(tmpdir(), 'fishbone-live-'));
 const captureDir = join(root, 'captures');
 const vaultDir = join(root, 'vault');
@@ -47,30 +48,38 @@ try {
   const pair = run('compare', first.file, second.file);
   assert.equal(pair.status, 'HOLD');
   assert.equal(pair.sourceUrl, url);
-  assert.equal(pair.verdict, 'UNCHANGED',
+  assert.ok(['CHANGED', 'UNCHANGED'].includes(pair.verdict));
+  if (fixture) assert.equal(pair.verdict, 'UNCHANGED',
     'The static example.org page should preserve its visible content between visits');
   const history = run('history', url, '--allow-domain', domain, '--from', captureDir);
   assert.equal(history.status, 'LOCAL_HOLD');
   assert.equal(history.observations, 2);
   assert.deepEqual(history.entries.map(x => x.comparisonStatus),
-    ['FIRST_OBSERVATION', 'UNCHANGED']);
+    ['FIRST_OBSERVATION', pair.verdict]);
   const preview = run('preview', second.file);
   assert.equal(preview.status, 'HOLD');
   assert.equal(preview.proposedObservation.capture.method, 'browser-observation');
   assert.equal(preview.proposedObservation.capture.rights, 'links-only');
-  const admitted = run('admit', second.file, '--reviewed', '--vault', vaultDir);
-  assert.equal(admitted.status, 'LOCAL_ADMISSION');
-  assert.match(admitted.id, /^sha256:[0-9a-f]{64}$/);
-  const recorded = JSON.parse(await readFile(join(vaultDir, 'objects', admitted.id.slice(7) + '.json'), 'utf8'));
-  assert.equal(recorded.capture.rights, 'links-only');
-  assert.equal(recorded.artifact.url, url);
+  // Human review is not automated for the owned-site run. The fixture still
+  // validates admission in an isolated disposable vault as a regression test.
+  let admitted = null;
+  if (fixture) {
+    admitted = run('admit', second.file, '--reviewed', '--vault', vaultDir);
+    assert.equal(admitted.status, 'LOCAL_ADMISSION');
+    assert.match(admitted.id, /^sha256:[0-9a-f]{64}$/);
+    const recorded = JSON.parse(await readFile(join(vaultDir, 'objects', admitted.id.slice(7) + '.json'), 'utf8'));
+    assert.equal(recorded.capture.rights, 'links-only');
+    assert.equal(recorded.artifact.url, url);
+  }
   console.log(JSON.stringify({
     outcome: 'PASS', browser: 'Playwright Chromium (real browser visit)',
     source: url, robots: 'checked by FISHBONE before navigation',
     captures: 2, comparison: pair.verdict,
     history: history.entries.map(e => e.comparisonStatus),
-    admission: admitted.status, admittedId: admitted.id,
-    note: 'Local example.org smoke only; no Suno automated visit and no external publication.'
+    pageTitle: newer.title, visibleTextLength: newer.visibleText.length,
+    beforeContentSha256: older.contentSha256, afterContentSha256: newer.contentSha256,
+    admission: admitted?.status || 'HOLD_NOT_ADMITTED', admittedId: admitted?.id || null,
+    note: fixture ? 'Local example.org fixture; no external publication.' : 'Owner-site live observations only; records discarded after test, no automated SIA admission.'
   }, null, 2));
 } finally {
   await rm(root, { recursive: true, force: true });
