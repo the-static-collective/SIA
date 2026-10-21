@@ -27,3 +27,7 @@ jobs:
         run: npx playwright install --with-deps chromium
       - name: Run isolated live-browser smoke against example.org
         run: node tools/fishbone/smoke-live.mjs
+      - name: Test the Static Collective's owned abundent.org homepage
+        env:
+          FISHBONE_SMOKE_URL: https://abundent.org/
+        run: node tools/fishbone/smoke-live.mjs
