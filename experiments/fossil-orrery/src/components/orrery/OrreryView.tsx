@@ -35,6 +35,11 @@ export function OrreryView() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const nodesRef = useRef<SkyNode[]>([]);
   nodesRef.current = layout.nodes;
+  const hotNodeIds = useMemo(() => {
+    const highlighted = new Set(vault.pins);
+    if (vault.selectedId) highlighted.add(vault.selectedId);
+    return new Set(layout.nodes.filter((node) => node.memberIds.some((id) => highlighted.has(id))).map((node) => node.id));
+  }, [layout, vault.selectedId, vault.pins]);
   const selected = useMemo(
     () => items.find((item) => item.id === vault.selectedId) ?? null,
     [items, vault.selectedId],
@@ -64,8 +69,10 @@ export function OrreryView() {
     const draw = () => {
       const { width, height } = viewport;
       const dpr = window.devicePixelRatio || 1;
-      canvas.width = Math.max(1, Math.floor(width * dpr));
-      canvas.height = Math.max(1, Math.floor(height * dpr));
+      const pixelWidth = Math.max(1, Math.floor(width * dpr));
+      const pixelHeight = Math.max(1, Math.floor(height * dpr));
+      if (canvas.width !== pixelWidth) canvas.width = pixelWidth;
+      if (canvas.height !== pixelHeight) canvas.height = pixelHeight;
       canvas.style.width = `${width}px`;
       canvas.style.height = `${height}px`;
       const ctx = canvas.getContext("2d");
@@ -101,7 +108,7 @@ export function OrreryView() {
         ctx.globalAlpha = 1;
       }
       for (const node of layout.nodes) {
-        const hot = node.memberIds.includes(vault.selectedId ?? "") || node.memberIds.some((id) => vault.pins.includes(id));
+        const hot = hotNodeIds.has(node.id);
         ctx.beginPath();
         ctx.fillStyle = node.sourceBand === "undated" ? paint.panel : paint.bone;
         ctx.strokeStyle = hot ? paint.amber : paint.line;
@@ -141,7 +148,7 @@ export function OrreryView() {
       }
     };
     draw();
-  }, [layout, viewport, hovered, vault.selectedId, vault.pins]);
+  }, [layout, viewport, hovered, hotNodeIds]);
 
   const hit = (event: React.PointerEvent<HTMLCanvasElement>) => {
     const rect = event.currentTarget.getBoundingClientRect();
