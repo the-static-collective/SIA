@@ -10,7 +10,8 @@
     "test": "node --test tests/*.test.mjs",
     "demo": "node src/cli.mjs demo --vault .sia-demo",
     "sia": "node src/cli.mjs",
-    "ingest:suno": "node scripts/ingest-suno-albums.mjs"
+    "ingest:suno": "node scripts/ingest-suno-albums.mjs",
+    "fishbone": "node tools/fishbone/cli.mjs"
   },
   "license": "MIT"
 }
