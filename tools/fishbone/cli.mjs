@@ -3,15 +3,19 @@ import { readFile, mkdir, writeFile, stat } from 'node:fs/promises';
 import { resolve, join } from 'node:path';
 import { permitUrl, robotsPermit, makeWitness, verifyWitness, toSiaObservation } from './core.mjs';
 import { ingest } from '../../src/vault.mjs';
+import { compareWitnesses, loadHistory, makeTimeline, readWitnessFile } from './temporal.mjs';
 
-const HELP = `FISHBONE-001 — bounded browser witness for SIA
+const HELP = `FISHBONE-002 — bounded browser witness + temporal change tracking for SIA
 
   node tools/fishbone/cli.mjs capture https://example.org/ --allow-domain example.org [--out DIR]
   node tools/fishbone/cli.mjs preview FILE
+  node tools/fishbone/cli.mjs compare OLDER.json NEWER.json
+  node tools/fishbone/cli.mjs history https://example.org/ --allow-domain example.org [--from DIR]
   node tools/fishbone/cli.mjs admit FILE --reviewed [--vault .sia]
 
 Install browser runtime first: npm install --no-save playwright && npx playwright install chromium
-One URL per invocation; explicit allow-domain and robots compliance; no scheduled or recursive crawling.`;
+One URL per invocation; explicit allow-domain and robots compliance; no scheduled or recursive crawling.
+Changes are LOCAL HOLD reports, never automatic admission or publication.`;
 const args = process.argv.slice(2), command = args.shift();
 function opt(name, fallback) {
   const i = args.indexOf(name);
@@ -66,8 +70,20 @@ async function capture(raw, allowedDomain, outDir) {
     await mkdir(directory, { recursive: true });
     const file = join(directory, witness.witnessSha256 + '.json');
     await writeFile(file, JSON.stringify(witness, null, 2) + '\n', { flag: 'wx', mode: 0o600 });
+    // Every visit is a new immutable snapshot. Detect temporal changes without admitting any observation.
+    let comparisonStatus = 'HOLD_HISTORY_UNAVAILABLE', change = null, historyError = null;
+    try {
+      const timeline = makeTimeline(await loadHistory(directory, witness.finalUrl, allowedDomain), witness.finalUrl);
+      const current = timeline.entries.find(x => x.witnessSha256 === witness.witnessSha256);
+      if (!current) throw Error('New witness missing from local timeline');
+      comparisonStatus = current.comparisonStatus;
+      change = current.change;
+    } catch (error) {
+      historyError = String(error.message);
+    }
     process.stdout.write(JSON.stringify({ status: 'CAPTURED_NOT_ADMITTED', file, title: witness.title,
-      witnessSha256: witness.witnessSha256, linkCount: witness.links.length }, null, 2) + '\n');
+      witnessSha256: witness.witnessSha256, linkCount: witness.links.length,
+      comparisonStatus, change, historyError }, null, 2) + '\n');
   } finally { await browser.close(); }
 }
 
@@ -75,6 +91,21 @@ async function main() {
   if (command === 'capture') {
     if (positionals.length !== 1) throw Error('capture requires exactly one URL');
     return capture(positionals[0], opt('--allow-domain', ''), opt('--out', '.fishbone/captures'));
+  }
+  if (command === 'compare') {
+    if (positionals.length !== 2) throw Error('compare requires OLDER.json NEWER.json');
+    const earlier = await readWitnessFile(positionals[0]);
+    const later = await readWitnessFile(positionals[1]);
+    process.stdout.write(JSON.stringify(compareWitnesses(earlier, later), null, 2) + '\n');
+    return;
+  }
+  if (command === 'history') {
+    if (positionals.length !== 1) throw Error('history requires exactly one page URL');
+    const allowed = opt('--allow-domain', '');
+    const requested = permitUrl(positionals[0], allowed).href;
+    const records = await loadHistory(opt('--from', '.fishbone/captures'), requested, allowed);
+    process.stdout.write(JSON.stringify(makeTimeline(records, requested), null, 2) + '\n');
+    return;
   }
   if (command === 'preview' || command === 'admit') {
     if (positionals.length !== 1) throw Error(`${command} requires one witness file`);
