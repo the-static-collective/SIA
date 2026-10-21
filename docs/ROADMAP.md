@@ -37,3 +37,9 @@ Run ten different recipe seeds across the same two real metadata records. Verify
 A separate, opt-in Playwright worker captures **one** allowed public HTTPS page after an explicit exact-domain scope and robots.txt check. It writes a local, content-hashed witness under `.fishbone/captures/` and stops at HOLD. `preview` displays the intended SIA observation; `admit --reviewed` records a source-attributed `browser-observation` in SIA without claiming authentication, media rights, or remote publication. There is no batch crawling, authentication/session import, recursive traversal, scheduling, or deployable worker yet. Never automate sites that prohibit scraping (including Suno); use owner exports or manual capture instead.
 
 See [`tools/fishbone/README.md`](../tools/fishbone/README.md). Before broader deployment, harden DNS/IP resolution, complete robots protocol conformance, rate limits, and retention/access control.
+
+## FISHBONE-002 · Temporal evidence trail (implemented in stacked PR)
+
+The local one-page witness can now be revisited manually to produce a fresh, immutable snapshot. The optional comparison layer reconstructs per-URL chronology and local HOLD change reports from paired, verified witness files. Title, bounded visible text, selected same-host links and HTTP status are compared. Hash-stable content snapshots can show `UNCHANGED` while the captures remain separate time-stamped events. Timestamp ties are explicitly ambiguous; source redirects are compared only when final URLs match exactly.
+
+This is a **partial** implementation toward SIA Gate 003, not completion of archival backup, independent time/source authentication, durable global history, or automatic crawling. New `compare` and `history` commands operate offline; `capture` can print the change since its prior stored observation while remaining HOLD. Details and limits: [Fishbone temporal witness](../tools/fishbone/README.md).
