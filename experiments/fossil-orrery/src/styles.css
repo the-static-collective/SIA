@@ -1,0 +1,84 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ink: #14120e;
+  --color-panel: #1c1914;
+  --color-raised: #262219;
+  --color-line: #3c352b;
+  --color-bone: #f3ead7;
+  --color-mute: #a39884;
+  --color-amber: #e3a04a;
+  --font-serif: "Newsreader", "Iowan Old Style", Georgia, serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+  --radius-card: 0.75rem;
+}
+
+@layer base {
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+  html,
+  body {
+    background: var(--color-ink);
+    color: var(--color-bone);
+    min-height: 100%;
+  }
+  body {
+    font-family: var(--font-serif);
+    line-height: 1.5;
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-amber);
+    outline-offset: 2px;
+  }
+  input,
+  select,
+  textarea {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--color-bone);
+    background: var(--color-ink);
+    border: 1px solid var(--color-line);
+    border-radius: 0.5rem;
+    padding: 0.55rem 0.7rem;
+    min-height: 2.75rem;
+  }
+  textarea {
+    min-height: 6rem;
+  }
+}
+
+@layer components {
+  .btn {
+    min-height: 2.75rem;
+    padding: 0.5rem 0.85rem;
+    border: 1px solid var(--color-line);
+    background: var(--color-raised);
+    color: var(--color-bone);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.04em;
+    border-radius: 0.55rem;
+  }
+  .btn[data-primary="true"] {
+    background: var(--color-amber);
+    color: var(--color-ink);
+    border-color: var(--color-amber);
+  }
+  .btn[data-quiet="true"] {
+    background: transparent;
+  }
+  .btn:disabled {
+    opacity: 0.45;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}

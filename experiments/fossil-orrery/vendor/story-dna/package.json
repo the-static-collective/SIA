@@ -1,0 +1,15 @@
+{
+  "name": "@the-static-collective/story-dna",
+  "version": "0.0.2",
+  "private": true,
+  "type": "module",
+  "description": "Cross-Collective provenance-first fictional relationship thread recombinator (incubation)",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "test": "node --test test/*.test.mjs",
+    "demo": "node cli/story-dna.mjs echo 325",
+    "fork": "node cli/story-dna.mjs fork 325"
+  }
+}

@@ -1,0 +1,122 @@
+{
+  "schema": "sia/observation/v0",
+  "artifact": {
+    "externalId": "suno:album:cab6b253-5f5b-4eb1-ae59-ac74c890b04d",
+    "kind": "album",
+    "title": "Blue Night Morning",
+    "url": "https://suno.com/album/cab6b253-5f5b-4eb1-ae59-ac74c890b04d",
+    "creator": "The Static Collective"
+  },
+  "capture": {
+    "sourceUrl": "https://suno.com/album/cab6b253-5f5b-4eb1-ae59-ac74c890b04d",
+    "evidenceUrl": "https://suno.com/album/cab6b253-5f5b-4eb1-ae59-ac74c890b04d",
+    "observedAt": "2026-10-13T23:53:02.438Z",
+    "method": "manual-transcription",
+    "rights": "links-only",
+    "notes": "Read-only TinyFish visit of Suno album share link on 2026-10-13: nine displayed titles, ordering, durations and album creation date. Audio/artwork/lyrics not copied. An earlier five-song playlist with the same title is distinct; see captures/suno/blue-night-morning-history.md."
+  },
+  "facts": [
+    {
+      "key": "track_count",
+      "value": 9,
+      "basis": "source-visible"
+    },
+    {
+      "key": "album_created_date",
+      "value": "2026-10-13",
+      "basis": "source-visible"
+    },
+    {
+      "key": "track_01_title",
+      "value": "Blue Night Morning Bloom",
+      "basis": "source-visible"
+    },
+    {
+      "key": "track_01_duration",
+      "value": "2:34",
+      "basis": "source-visible"
+    },
+    {
+      "key": "track_02_title",
+      "value": "Home With You",
+      "basis": "source-visible"
+    },
+    {
+      "key": "track_02_duration",
+      "value": "2:59",
+      "basis": "source-visible"
+    },
+    {
+      "key": "track_03_title",
+      "value": "Own Our Color",
+      "basis": "source-visible"
+    },
+    {
+      "key": "track_03_duration",
+      "value": "3:26",
+      "basis": "source-visible"
+    },
+    {
+      "key": "track_04_title",
+      "value": "Between the Pines",
+      "basis": "source-visible"
+    },
+    {
+      "key": "track_04_duration",
+      "value": "3:12",
+      "basis": "source-visible"
+    },
+    {
+      "key": "track_05_title",
+      "value": "Dusty Underground Currents",
+      "basis": "source-visible"
+    },
+    {
+      "key": "track_05_duration",
+      "value": "1:52",
+      "basis": "source-visible"
+    },
+    {
+      "key": "track_06_title",
+      "value": "Through the Wave",
+      "basis": "source-visible"
+    },
+    {
+      "key": "track_06_duration",
+      "value": "3:56",
+      "basis": "source-visible"
+    },
+    {
+      "key": "track_07_title",
+      "value": "Blooming Now",
+      "basis": "source-visible"
+    },
+    {
+      "key": "track_07_duration",
+      "value": "3:06",
+      "basis": "source-visible"
+    },
+    {
+      "key": "track_08_title",
+      "value": "Sun Come Out",
+      "basis": "source-visible"
+    },
+    {
+      "key": "track_08_duration",
+      "value": "3:04",
+      "basis": "source-visible"
+    },
+    {
+      "key": "track_09_title",
+      "value": "Toastbread Bed",
+      "basis": "source-visible"
+    },
+    {
+      "key": "track_09_duration",
+      "value": "2:41",
+      "basis": "source-visible"
+    }
+  ],
+  "relations": [],
+  "interpretations": []
+}
