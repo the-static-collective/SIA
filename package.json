@@ -11,7 +11,8 @@
     "demo": "node src/cli.mjs demo --vault .sia-demo",
     "sia": "node src/cli.mjs",
     "ingest:suno": "node scripts/ingest-suno-albums.mjs",
-    "fishbone": "node tools/fishbone/cli.mjs"
+    "fishbone": "node tools/fishbone/cli.mjs",
+    "fishbone:smoke": "node tools/fishbone/smoke-live.mjs"
   },
   "license": "MIT"
 }
