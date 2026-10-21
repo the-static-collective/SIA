@@ -2,7 +2,7 @@ import { assertKeys, boundedString, digest, httpsUrl, record } from './canonical
 
 export const OBSERVATION_SCHEMA='sia/observation/v0';
 const kinds=['song','album','image','video','page','code','text','other'];
-const methods=['manual-transcription','owner-export','api-response'];
+const methods=['manual-transcription','owner-export','api-response','browser-observation'];
 const rights=['links-only','owned-media','licensed-media'];
 const factKinds=['source-visible','owner-export','owner-note'];
 const relations=['published-pair','part-of','links-to','version-of','sibling-of'];

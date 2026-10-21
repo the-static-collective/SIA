@@ -31,3 +31,9 @@ Offer user-selected, bounded and verified SIA parcels to webZ and reLATTE. Keep 
 ## Proposed first measurable experiment
 
 Run ten different recipe seeds across the same two real metadata records. Verify ten reproducible recipes, then let an AI propose ten visual storyboards. Measure novelty, repeated motifs, source-boundary errors, human favorite selections and how the chosen descendants change the second-generation recipe space.
+
+## FISHBONE-001 · Browser witness prototype (proposed implementation)
+
+A separate, opt-in Playwright worker captures **one** allowed public HTTPS page after an explicit exact-domain scope and robots.txt check. It writes a local, content-hashed witness under `.fishbone/captures/` and stops at HOLD. `preview` displays the intended SIA observation; `admit --reviewed` records a source-attributed `browser-observation` in SIA without claiming authentication, media rights, or remote publication. There is no batch crawling, authentication/session import, recursive traversal, scheduling, or deployable worker yet. Never automate sites that prohibit scraping (including Suno); use owner exports or manual capture instead.
+
+See [`tools/fishbone/README.md`](../tools/fishbone/README.md). Before broader deployment, harden DNS/IP resolution, complete robots protocol conformance, rate limits, and retention/access control.

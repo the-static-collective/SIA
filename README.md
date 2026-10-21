@@ -118,3 +118,18 @@ Read [the capture and metabolism protocol](docs/PROTOCOL.md) and [the next gates
 Tests cover idempotent intake, canonical object hashing, source tampering, rights/basis validation, recipe replay, contradictory AI provenance, HOLD, human selection, fresh derived material, and an end-to-end CLI run. GitHub Actions executes them on every push and pull request.
 
 **Archive-before-inference, provenance-before-beauty, creativity-without-counterfeit-authority.**
+
+## FISHBONE-001 — reviewable browser witness (experimental)
+
+[`tools/fishbone/`](tools/fishbone/README.md) now contains an opt-in Playwright browser witness: one public page on an explicitly allowlisted HTTPS hostname, robots check, a local content-hashed snapshot, HOLD preview, and a human-reviewed bridge into SIA's `browser-observation` records.
+
+```bash
+npm install --no-save playwright
+npx playwright install chromium
+npm run fishbone -- capture https://example.org/ --allow-domain example.org
+# Follow the printed witness file path:
+npm run fishbone -- preview .fishbone/captures/<witnessSha256>.json
+npm run fishbone -- admit .fishbone/captures/<witnessSha256>.json --reviewed
+```
+
+This is **not** recursive crawling, an authenticated session extractor, or a production-hardened network sandbox. Suno is excluded from automation under its current terms. Use owner exports/manual observations for restricted platforms; retain local witness files separately. See the [FISHBONE constraints and threat model](tools/fishbone/README.md).
