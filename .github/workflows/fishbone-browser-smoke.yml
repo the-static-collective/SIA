@@ -31,3 +31,7 @@ jobs:
         env:
           FISHBONE_SMOKE_URL: https://abundent.org/
         run: node tools/fishbone/smoke-live.mjs
+      - name: Test the public week listening room
+        env:
+          FISHBONE_SMOKE_URL: https://abundent.org/week/
+        run: node tools/fishbone/smoke-live.mjs
