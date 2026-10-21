@@ -103,6 +103,9 @@ export function syntheticBodies() {
 
 export const observedRecords = [rosemary, porch, bloom, sunday, another, week, dadcore, blue, reading];
 
+/** Six distinct public SIA album observations, excluding later AI readings and individual song links. */
+export const observedAlbums = [bloom, sunday, another, week, dadcore, blue];
+
 export const PORCH_IDS = {
   rosemary: "suno:70b1d32e-21b6-4340-990d-1a4ef67cfc42",
   porch: "suno:66ce822e-be59-4511-887b-61feda608300",

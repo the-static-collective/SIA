@@ -14,6 +14,7 @@ import { UNFAMILIAR_CSV, sunoSampleExport } from "@/lib/orrery/sample";
 import { validateThread } from "@/lib/orrery/engine";
 import { downloadJson } from "./parts";
 import { useVault } from "./store";
+import { FieldTrial } from "./FieldTrial";
 
 const ROLES: Role[] = ["ignore", "title", "url", "externalId", "creator", "createdAt", "styleTags", "duration", "notes"];
 
@@ -158,7 +159,22 @@ export function Harvester() {
             Suno exports, SIA observations, vault bundles, and unfamiliar tables. Original bytes stay intact. Missing dates and ancestry stay missing.
           </p>
         </div>
-        <label className="flex min-h-28 cursor-pointer flex-col items-center justify-center gap-2 rounded-xl border border-dashed border-line bg-panel px-4 py-6 text-center">
+        <FieldTrial />
+        <label
+          className="flex min-h-28 cursor-pointer flex-col items-center justify-center gap-2 rounded-xl border border-dashed border-line bg-panel px-4 py-6 text-center"
+          onDragOver={(event) => event.preventDefault()}
+          onDrop={async (event) => {
+            event.preventDefault();
+            const file = event.dataTransfer.files?.[0];
+            if (!file) return;
+            if (!/\.(json|csv|txt)$/i.test(file.name) || file.size > 24 * 1024 * 1024) {
+              vault.setError("Choose a JSON/CSV/TXT file no larger than 24 MiB. Split larger exports locally.");
+              return;
+            }
+            try { stageText(file.name, await file.text()); }
+            catch { vault.setError("File could not be read locally."); }
+          }}
+        >
           <span className="font-mono text-xs text-bone">Drop a JSON or CSV file</span>
           <span className="font-mono text-xs text-mute">or choose one from this device</span>
           <input
@@ -168,7 +184,9 @@ export function Harvester() {
             onChange={async (event) => {
               const file = event.target.files?.[0];
               if (!file) return;
-              stageText(file.name, await file.text());
+              if (file.size > 24 * 1024 * 1024) { vault.setError("File exceeds 24 MiB; split it locally."); return; }
+              try { stageText(file.name, await file.text()); }
+              catch { vault.setError("File could not be read locally."); }
             }}
             type="file"
           />
@@ -223,6 +241,7 @@ export function Harvester() {
         {sunoPlan && (
           <section className="rounded-xl border border-line bg-panel p-4">
             <h3 className="font-serif text-2xl">Suno adapter preview</h3>
+            <p className="mt-1 font-mono text-xs text-amber">Private owner-supplied export — browser only. Never upload source files or raw vault snapshots to GitHub.</p>
             <p className="mt-1 font-mono text-xs text-mute">
               {sunoPlan.eligible} eligible · {sunoPlan.undated} undated · {sunoPlan.rejected.length} rejected · oldest known creation first
             </p>

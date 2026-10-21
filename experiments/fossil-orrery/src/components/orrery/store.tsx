@@ -2,7 +2,7 @@ import { createContext, useContext, useEffect, useMemo, useRef, useState, type R
 import { observation } from "@/lib/orrery/engine";
 import { readBundle } from "@/lib/orrery/bundle";
 import { acceptStored, hashText } from "@/lib/orrery/intake";
-import { observedRecords, syntheticBodies } from "@/lib/orrery/sample";
+import { observedRecords, observedAlbums, syntheticBodies } from "@/lib/orrery/sample";
 
 export type Instrument = "harvester" | "orrery" | "metabolizer" | "maddclown";
 
@@ -26,6 +26,7 @@ type VaultApi = VaultData & {
   ready: boolean;
   notice: string | null;
   error: string | null;
+  durability: "pending" | "saved" | "memory-only" | "failed";
   setInstrument: (instrument: Instrument) => void;
   select: (id: string | null) => void;
   togglePin: (id: string) => void;
@@ -40,6 +41,7 @@ type VaultApi = VaultData & {
   addCandidate: (item: any) => void;
   addReview: (item: any) => void;
   loadSample: () => void;
+  loadObservedAlbums: () => { added: number; reused: number; rejected: string[] };
   importBundle: (bundle: unknown) => void;
   forget: () => void;
 };
@@ -75,17 +77,19 @@ async function idbGet(): Promise<VaultData | null> {
   const db = await openDb();
   return new Promise((resolve, reject) => {
     const req = db.transaction("kv").objectStore("kv").get(KEY);
-    req.onsuccess = () => resolve((req.result as VaultData) ?? null);
-    req.onerror = () => reject(req.error);
+    req.onsuccess = () => { const value = (req.result as VaultData) ?? null; db.close(); resolve(value); };
+    req.onerror = () => { db.close(); reject(req.error); };
   });
 }
 
 async function idbSet(data: VaultData) {
   const db = await openDb();
   return new Promise<void>((resolve, reject) => {
-    const req = db.transaction("kv", "readwrite").objectStore("kv").put(data, KEY);
-    req.onsuccess = () => resolve();
-    req.onerror = () => reject(req.error);
+    const tx = db.transaction("kv", "readwrite");
+    tx.oncomplete = () => { db.close(); resolve(); };
+    tx.onerror = () => { const reason = tx.error; db.close(); reject(reason ?? new Error("IndexedDB write error")); };
+    tx.onabort = () => { const reason = tx.error; db.close(); reject(reason ?? new Error("IndexedDB write aborted")); };
+    tx.objectStore("kv").put(data, KEY);
   });
 }
 
@@ -108,6 +112,7 @@ export function VaultProvider({ children }: { children: ReactNode }) {
   const [ready, setReady] = useState(false);
   const [notice, setNotice] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [durability, setDurability] = useState<"pending" | "saved" | "memory-only" | "failed">("pending");
   const dataRef = useRef(data);
   dataRef.current = data;
 
@@ -136,6 +141,7 @@ export function VaultProvider({ children }: { children: ReactNode }) {
         const seeded = sealSample();
         setData({ ...EMPTY, objects: seeded.objects });
         setNotice("This browser wouldn't keep a vault. The trench is open for this visit only.");
+        setDurability("memory-only");
         setReady(true);
       });
     return () => {
@@ -145,9 +151,13 @@ export function VaultProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     if (!ready) return;
+    if (durability === "memory-only") return;
+    setDurability("pending");
     const handle = setTimeout(() => {
-      idbSet(dataRef.current).catch(() => setError("The local vault could not be saved in this browser."));
-    }, 200);
+      idbSet(dataRef.current)
+        .then(() => setDurability("saved"))
+        .catch(() => { setDurability("failed"); setError("This vault was not saved. Export a backup now."); });
+    }, 400);
     return () => clearTimeout(handle);
   }, [data, ready]);
 
@@ -187,6 +197,7 @@ export function VaultProvider({ children }: { children: ReactNode }) {
       ready,
       notice,
       error,
+      durability,
       setInstrument: (instrument) => commit((current) => ({ ...current, instrument })),
       select: (selectedId) => commit((current) => ({ ...current, selectedId })),
       togglePin: (id) =>
@@ -221,6 +232,11 @@ export function VaultProvider({ children }: { children: ReactNode }) {
         })),
       addCandidate: (item) => commit((current) => ({ ...current, candidates: [...current.candidates, item] })),
       addReview: (item) => commit((current) => ({ ...current, reviews: [...current.reviews, item] })),
+      loadObservedAlbums: () => {
+        const result = ingestObjects(observedAlbums.map((body) => observation(body)));
+        setNotice(`Six archived Suno album observations: ${result.added} new, ${result.reused} already present. 52 album track positions, NOT 52 unique songs. Not a fresh Suno fetch.`);
+        return result;
+      },
       loadSample: () => {
         const seeded = sealSample();
         const result = ingestObjects(Object.values(seeded.objects));
@@ -250,7 +266,7 @@ export function VaultProvider({ children }: { children: ReactNode }) {
     };
     // commit is stable enough for this session: it always reads the ref.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data, ready, notice, error]);
+  }, [data, ready, notice, error, durability]);
 
   return <Ctx.Provider value={api}>{children}</Ctx.Provider>;
 }
