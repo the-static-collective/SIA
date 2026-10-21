@@ -44,3 +44,28 @@ For restricted platforms (including **Suno**), use manual annotations or approve
 ## What FISHBONE deliberately does not do
 
 It does not grant third-party rights, scrape restricted services, authenticate claims, prove media ownership, sign reLATTE receipts, or promote observations to public canon. It is a witness instrument feeding SIA, not SIA itself.
+
+## FISHBONE-002 · Temporal witnesses and change reports
+
+Every explicit `capture` invocation creates a **new timestamped, immutable evidence file**, even if the page content is unchanged. It then computes a local HOLD comparison against the immediately previous capture of that exact final URL (when timestamps establish an unambiguous order). It never schedules the next visit.
+
+```bash
+# Run the capture a second time later (for an eligible domain you control or may inspect):
+npm run fishbone -- capture https://example.org/ --allow-domain example.org
+
+# Compare any two saved captures without going online:
+npm run fishbone -- compare .fishbone/captures/OLDER.json .fishbone/captures/NEWER.json
+
+# Reconstruct the local chronological witness timeline without fetching the page:
+npm run fishbone -- history https://example.org/ --allow-domain example.org
+# Or select a specific directory:
+npm run fishbone -- history https://example.org/ --allow-domain example.org --from .fishbone/captures
+```
+
+`compare` requires exactly the same **final URL**, two verified witness hashes, and strictly increasing capture timestamps. Its `fishbone/change/v1` report includes the before/after witness IDs, times, content hashes, a `CHANGED`/`UNCHANGED` verdict, title/status changes, first-difference text excerpts and sorted added/removed same-origin links. The change report receives a deterministic content hash and remains **HOLD**; it is not an authenticated archive or a finding about anything beyond the captured viewport/text/links.
+
+`history` scans only hash-named JSON witnesses in a local capture directory (up to 256), validates every witness and filename, restricts the results to one exact final URL, orders them chronologically, and computes adjacent comparisons. Two different witnesses with the same timestamp remain separate with `AMBIGUOUS_SAME_TIMESTAMP`; they are **not** silently ordered into a causal chain. If a file is altered, history fails instead of hiding damage.
+
+**Important:** the 12,000-character visible-text window and 24-link cap are deliberate. `UNCHANGED` means those bounded observed properties (plus page title and HTTP status) were identical across captures—not that the entire site, hidden content, media or external backlinks were unchanged. A changed excerpt is not a full textual diff. Browser HTML, artwork and audio are not preserved. The files are local and gitignored, so an operator must back them up to retain the timeline. The timestamps are local clock readings, not independently attested time.
+
+**Current status:** no autonomous re-crawl, remote synchronization, change notifications, selective site monitoring or stable external provenance signatures. The operator supplies each permitted revisit. Production deployment still requires browser network isolation against private IP/DNS rebinding and fuller robots protocol behavior; see the earlier security limitations.

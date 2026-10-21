@@ -133,3 +133,14 @@ npm run fishbone -- admit .fishbone/captures/<witnessSha256>.json --reviewed
 ```
 
 This is **not** recursive crawling, an authenticated session extractor, or a production-hardened network sandbox. Suno is excluded from automation under its current terms. Use owner exports/manual observations for restricted platforms; retain local witness files separately. See the [FISHBONE constraints and threat model](tools/fishbone/README.md).
+
+### FISHBONE-002: remember what changed
+
+Repeat an explicit permitted capture on the same URL to preserve another local timestamped witness. FISHBONE now reports differences from the previous observation without overwriting either record. Offline analysis is available:
+
+```bash
+npm run fishbone -- compare .fishbone/captures/OLDER.json .fishbone/captures/NEWER.json
+npm run fishbone -- history https://example.org/ --allow-domain example.org
+```
+
+Both return source-bound **HOLD** evidence, not a published/canonical claim. The new `fishbone/change/v1` records include witness IDs, content hashes and bounded differences. See the [FISHBONE-002 runbook](tools/fishbone/README.md) for limitations.
