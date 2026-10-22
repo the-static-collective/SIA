@@ -113,6 +113,28 @@ CREATIVE DESCENDANT ≠ ORIGINAL SOURCE
 
 Read [the capture and metabolism protocol](docs/PROTOCOL.md) and [the next gates](docs/ROADMAP.md).
 
+
+## Suno owner-export intake · Gate 002A
+
+SIA can now import a local Suno-oriented JSON/CSV catalog without accessing an account, downloading media, or calling an AI model. Suno's public help describes per-song downloads and Studio media exports, but does **not** document an official bulk JSON/CSV library catalog. This adapter therefore expects a structured file the operator already has, such as an independently prepared owner inventory. It does not extract from Suno's private APIs.
+
+```sh
+# Inspect oldest-first candidates without writing anything
+node src/cli.mjs suno-import /path/to/catalog.json --dry-run --limit 20
+
+# Preserve exact original bytes in an ignored, private local vault
+node src/cli.mjs suno-import /path/to/catalog.json --vault .sia --limit 20
+node src/cli.mjs catalog --vault .sia
+
+# Supply two imported observation IDs to the existing recipe engine
+node src/cli.mjs compose sha256:ID1,sha256:ID2 --vault .sia --mode music --seed 325 --out recipe.json
+node src/cli.mjs prompt recipe.json --out ai-prompt.json
+```
+
+An intake manifest tracks source positions, rejects, undated entries, IDs, and snapshot hashes. **Oldest** means an explicit creation date; missing dates follow in source order, and publication dates are not substituted. The untouched original file is preserved in `.sia/raw/`, including unknown metadata. Only bounded facts become source-labeled SIA observations. Prompt and lyric projection requires `--include-prompts`; there is no remote upload or inference. The vault is not encrypted, so preserve its privacy.
+
+The example CSV and JSON use **fictional tracks, IDs and dates**. No personal Suno catalog has been imported by this PR. Read [the Suno intake guide](docs/SUNO-IMPORT-001.md). Source documentation: [Suno download FAQ](https://help.suno.com/en/articles/13614785).
+
 ## Build status
 
 Tests cover idempotent intake, canonical object hashing, source tampering, rights/basis validation, recipe replay, contradictory AI provenance, HOLD, human selection, fresh derived material, and an end-to-end CLI run. GitHub Actions executes them on every push and pull request.
