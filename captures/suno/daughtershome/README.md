@@ -1,4 +1,4 @@
-# Daughter's Home / Hailey Lu — first owner-directed album captures
+# Daughter's Home / Hailey Lu — owner-directed public album captures
 
 **Evidence date:** October 21, 2026 (United States); UTC observation timestamps in JSON. These records preserve what two individually supplied public Suno album share pages **displayed**, not independently authenticated publication records.
 
@@ -31,3 +31,17 @@ npm test
 ```
 
 The existing `ingest:suno` command imports `*.observation.json` from `captures/suno/albums/`, including these two, and is idempotent. This commits evidence records only: no media or hidden data, no assumption of commercial rights, no automated access to Suno, and no canonical publication authority.
+
+## Third owner-directed public album: AUTO S01E01
+
+A single explicitly supplied public album share link was read without crawling: https://suno.com/s/avMfwaqO6G2wTWWh
+
+| Album | Suno album ID | Displayed release day | Tracks | Total displayed time |
+| --- | --- | --- | ---: | ---: |
+| AUTO S01E01 | `cf6d9c0b-3a1b-4d64-8793-74de8fbf0138` | 2026-10-21 | 8 | 28:49 |
+
+No album description was shown; the field remains **unknown** rather than invented. All eight tracks displayed Suno model **V5.5** and no COVER badges. Preserve the ordered track names, durations and associated ordered song links in [the public snapshot](auto-s01e01-public-snapshot.json) and [its schema-valid SIA observation](../albums/daughtershome-auto-s01e01.observation.json).
+
+**Owner-reported total:** On October 21, 2026 the creator said their Suno collection held **21 albums**. See [the dated owner count](owner-album-count-2026-10-21.json). This is **not** a claim that this repository independently verified all 21 records. The SIA collection at this stage has **nine album observations across two profiles**, only **three** of which are the separately visited Daughter's Home albums. Do not merge the two totals or interpret the unretrieved 18 as missing/deleted.
+
+The only evidence of the new album is metadata accessible at the single supplied URL. The song URLs were aligned with displayed song titles by link sequence, but the individual song pages weren't opened or verified. This is source-labeled archival metadata, not a claim of official Suno API access.
