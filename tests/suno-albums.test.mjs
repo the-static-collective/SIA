@@ -13,19 +13,20 @@ const importer = new URL('../scripts/ingest-suno-albums.mjs', import.meta.url).p
 
 test('Suno album capture is a complete, bounded source-labeled collection', async () => {
   const names = (await readdir(folder)).filter(name => name.endsWith('.observation.json')).sort();
-  assert.equal(names.length, 8);
+  assert.equal(names.length, 9);
   const records = await Promise.all(names.map(async name => {
     const raw = JSON.parse(await readFile(new URL(name, folder), 'utf8'));
     return observation(raw);
   }));
-  assert.equal(new Set(records.map(x => x.artifact.externalId)).size, 8);
-  assert.equal(records.reduce((n, x) => n + x.facts.find(f => f.key === 'track_count').value, 0), 65);
+  assert.equal(new Set(records.map(x => x.artifact.externalId)).size, 9);
+  assert.equal(records.reduce((n, x) => n + x.facts.find(f => f.key === 'track_count').value, 0), 73);
   for (const item of records) {
     assert.equal(item.artifact.kind, 'album');
     assert.equal(item.capture.rights, 'links-only');
     assert.equal(item.capture.method, 'manual-transcription');
     const ownerAlbum = item.artifact.externalId === 'suno:album:425951a5-71f1-498c-9326-81a269649926' ||
-      item.artifact.externalId === 'suno:album:10648f9e-af80-44d5-950b-1b601d5aa596';
+      item.artifact.externalId === 'suno:album:10648f9e-af80-44d5-950b-1b601d5aa596' ||
+      item.artifact.externalId === 'suno:album:cf6d9c0b-3a1b-4d64-8793-74de8fbf0138';
     if (ownerAlbum) assert.match(item.capture.sourceUrl, /^https:\/\/suno\.com\/s\/[A-Za-z0-9]+$/);
     else assert.equal(item.capture.sourceUrl, item.artifact.title === 'Blue Night Morning' ? item.artifact.url : 'https://suno.com/@thestaticcollective');
     assert.match(item.artifact.url, /^https:\/\/suno\.com\/album\/[a-f0-9-]+$/);
@@ -46,7 +47,7 @@ test('Suno album capture is a complete, bounded source-labeled collection', asyn
     assert.equal(blue.facts.find(f => f.key === `track_${n}_duration`).value, durations[index-1]);
   }
   const recipe = compose(records, { mode: 'narrative', seed: 325 });
-  assert.equal(recipe.sources.length, 8);
+  assert.equal(recipe.sources.length, 9);
   assert.equal(recipe.constraints.assetPolicy, 'references-only');
 });
 
@@ -54,10 +55,10 @@ test('Suno album importer writes an idempotent local SIA vault', async t => {
   const dir = await mkdtemp(join(tmpdir(), 'sia-suno-'));
   t.after(() => rm(dir, { recursive: true, force: true }));
   const run = () => JSON.parse(execFileSync(process.execPath, [importer, '--vault', dir], { encoding: 'utf8' }));
-  assert.equal(run().imported, 8);
-  assert.equal(run().imported, 8);
+  assert.equal(run().imported, 9);
+  assert.equal(run().imported, 9);
   const items = await catalog(dir);
-  assert.equal(items.length, 8);
+  assert.equal(items.length, 9);
   assert.ok(items.every(x => x.artifact.kind === 'album'));
 });
 
