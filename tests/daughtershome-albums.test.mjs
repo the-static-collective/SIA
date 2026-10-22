@@ -9,11 +9,12 @@ import { ingest, catalog } from '../src/vault.mjs';
 const root=new URL('../captures/suno/',import.meta.url);
 async function json(relative){return JSON.parse(await readFile(new URL(relative,root),'utf8'));}
 const titles=['TESTIMONY S00E07','TESTIMONY S00E06'];
+const albumSlugs=['testimony-s00e07','testimony-s00e06','auto-s01e01'];
 
 test('owner-provided album pages preserve exact track ordering in schema-valid SIA observations',async()=>{
- for(const label of ['s00e07','s00e06']){
-  const source=await json('daughtershome/testimony-'+label+'-public-snapshot.json');
-  const observed=await json('albums/daughtershome-testimony-'+label+'.observation.json');
+ for(const label of albumSlugs){
+  const source=await json('daughtershome/'+label+'-public-snapshot.json');
+  const observed=await json('albums/daughtershome-'+label+'.observation.json');
   const normalized=observation(observed);
   assert.match(normalized.id,/^sha256:[a-f0-9]{64}$/);
   assert.equal(source.album_title,observed.artifact.title);
@@ -47,12 +48,29 @@ test('six plus seven dated track positions, but owner chronology is separately a
 test('actual vault roundtrip is idempotent and yields two distinct album content addresses',async()=>{
  const dir=await mkdtemp(join(tmpdir(),'sia-daughtershome-'));
  try{
-  const observations=await Promise.all(['s00e07','s00e06'].map(x=>json('albums/daughtershome-testimony-'+x+'.observation.json')));
+  const observations=await Promise.all(albumSlugs.map(x=>json('albums/daughtershome-'+x+'.observation.json')));
   const first=await Promise.all(observations.map(x=>ingest(dir,x)));
   const second=await Promise.all(observations.map(x=>ingest(dir,x)));
-  assert.notEqual(first[0].id,first[1].id);
+  assert.equal(new Set(first.map(x=>x.id)).size,3);
   assert.deepEqual(first.map(x=>x.id),second.map(x=>x.id));
   const saved=await catalog(dir);
-  assert.equal(saved.length,2);
+  assert.equal(saved.length,3);
  }finally{await rm(dir,{recursive:true,force:true});}
+});
+
+test('AUTO S01E01 preserves user-reported total separately from observed album count',async()=>{
+ const source=await json('daughtershome/auto-s01e01-public-snapshot.json');
+ const reported=await json('daughtershome/owner-album-count-2026-10-21.json');
+ assert.equal(source.album_title,'AUTO S01E01');
+ assert.equal(source.album_description,null);
+ assert.equal(source.track_count_displayed,8);
+ assert.equal(source.release_date_displayed,'2026-10-21');
+ assert.equal(source.tracks.reduce((sum,t)=>{
+  const [min,sec]=t.duration_displayed.split(':').map(Number);
+  return sum+60*min+sec;
+ },0),1729);
+ assert.ok(source.tracks.every(x=>x.model_displayed==='V5.5'));
+ assert.equal(reported.total_albums_owner_reported,21);
+ assert.equal(reported.artist_handle,'daughtershome');
+ assert.match(reported.evidence_basis,/creator/);
 });

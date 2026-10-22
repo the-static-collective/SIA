@@ -51,13 +51,14 @@ The prior six-album tally remains six **distinct album sources**; this is anothe
 
 ## Owner-directed Daughter's Home albums — October 21, 2026
 
-Two separately supplied public share links were read individually and source-labeled without an automated site crawl:
+Three separately supplied public share links were read individually and source-labeled without an automated site crawl:
 
 | Album | Displayed date | Album tracks | Share link |
 | --- | --- | ---: | --- |
 | TESTIMONY S00E07 | 2026-10-21 | 7 | https://suno.com/s/Fi6dhIQQSiRJMhxj |
 | TESTIMONY S00E06 | 2026-10-21 | 6 | https://suno.com/s/dsog00YrzRFX08SW |
+| AUTO S01E01 | 2026-10-21 | 8 | https://suno.com/s/avMfwaqO6G2wTWWh |
 
-The two new schema-valid records live in `albums/daughtershome-testimony-s00e07.observation.json` and `albums/daughtershome-testimony-s00e06.observation.json`, with full visible-field snapshots and owner notes in [`daughtershome/`](daughtershome/README.md). **The owner reports S00E07 released before S00E06**, despite both pages displaying the same calendar date; S00E06 opens another subchapter. This is preserved as owner chronology, not inferred from episode numbers or the public date labels.
+The initial two Daughter's Home schema-valid records live in `albums/daughtershome-testimony-s00e07.observation.json` and `albums/daughtershome-testimony-s00e06.observation.json`, with full visible-field snapshots and owner notes in [`daughtershome/`](daughtershome/README.md). **The owner reports S00E07 released before S00E06**, despite both pages displaying the same calendar date; S00E06 opens another subchapter. This is preserved as owner chronology, not inferred from episode numbers or the public date labels.
 
-**Total committed collection now:** 8 album observation records / 65 album track positions (not asserted to be 65 unique recordings). `npm run ingest:suno` imports both new records along with the prior six; raw media and screenshot images are not committed.
+**Total committed collection now:** 9 album observation records / 73 album track positions across two creator profiles (not asserted to be 73 unique recordings). `npm run ingest:suno` imports the three Daughter's Home album observations alongside the previous six; raw media and screenshot images are not committed. **Owner separately reports 21 Suno albums as of 2026-10-21**; SIA has not observed that complete 21-album collection. See [`daughtershome/owner-album-count-2026-10-21.json`](daughtershome/owner-album-count-2026-10-21.json).
