@@ -1,0 +1,286 @@
+{
+  "schema": "sia/observation/v0",
+  "artifact": {
+    "externalId": "suno:album:cf6d9c0b-3a1b-4d64-8793-74de8fbf0138",
+    "kind": "album",
+    "title": "AUTO S01E01",
+    "url": "https://suno.com/album/cf6d9c0b-3a1b-4d64-8793-74de8fbf0138",
+    "creator": "Hailey Lu"
+  },
+  "capture": {
+    "sourceUrl": "https://suno.com/s/avMfwaqO6G2wTWWh",
+    "observedAt": "2026-10-22T01:36:11.178Z",
+    "method": "manual-transcription",
+    "rights": "links-only",
+    "evidenceUrl": "https://suno.com/s/avMfwaqO6G2wTWWh",
+    "notes": "Owner-directed single public page read; source-visible song URLs paired by link list order, not independently opened. Date as displayed, no album description shown. No media."
+  },
+  "facts": [
+    {
+      "key": "release_date",
+      "value": "2026-10-21",
+      "basis": "source-visible"
+    },
+    {
+      "key": "track_count",
+      "value": 8,
+      "basis": "source-visible"
+    },
+    {
+      "key": "profile_handle",
+      "value": "daughtershome",
+      "basis": "source-visible"
+    },
+    {
+      "key": "track_01_title",
+      "value": "The Prompt (Remix)",
+      "basis": "source-visible"
+    },
+    {
+      "key": "track_01_duration",
+      "value": "2:41",
+      "basis": "source-visible"
+    },
+    {
+      "key": "track_01_model",
+      "value": "V5.5",
+      "basis": "source-visible"
+    },
+    {
+      "key": "track_01_cover_badge",
+      "value": false,
+      "basis": "source-visible"
+    },
+    {
+      "key": "track_01_url",
+      "value": "https://suno.com/song/787914ca-76cb-4dbb-ab95-ba114f48a954",
+      "basis": "source-visible"
+    },
+    {
+      "key": "track_02_title",
+      "value": "Open Waits",
+      "basis": "source-visible"
+    },
+    {
+      "key": "track_02_duration",
+      "value": "2:54",
+      "basis": "source-visible"
+    },
+    {
+      "key": "track_02_model",
+      "value": "V5.5",
+      "basis": "source-visible"
+    },
+    {
+      "key": "track_02_cover_badge",
+      "value": false,
+      "basis": "source-visible"
+    },
+    {
+      "key": "track_02_url",
+      "value": "https://suno.com/song/066d48ee-af18-4667-8000-63a3287c3efa",
+      "basis": "source-visible"
+    },
+    {
+      "key": "track_03_title",
+      "value": "Vortex Weight Protocol",
+      "basis": "source-visible"
+    },
+    {
+      "key": "track_03_duration",
+      "value": "6:19",
+      "basis": "source-visible"
+    },
+    {
+      "key": "track_03_model",
+      "value": "V5.5",
+      "basis": "source-visible"
+    },
+    {
+      "key": "track_03_cover_badge",
+      "value": false,
+      "basis": "source-visible"
+    },
+    {
+      "key": "track_03_url",
+      "value": "https://suno.com/song/17dbaf56-765a-44be-a06d-3798ecd1ad0b",
+      "basis": "source-visible"
+    },
+    {
+      "key": "track_04_title",
+      "value": "Patch my Memory",
+      "basis": "source-visible"
+    },
+    {
+      "key": "track_04_duration",
+      "value": "3:24",
+      "basis": "source-visible"
+    },
+    {
+      "key": "track_04_model",
+      "value": "V5.5",
+      "basis": "source-visible"
+    },
+    {
+      "key": "track_04_cover_badge",
+      "value": false,
+      "basis": "source-visible"
+    },
+    {
+      "key": "track_04_url",
+      "value": "https://suno.com/song/8986ae71-c3fb-471e-88f9-20b90e88a578",
+      "basis": "source-visible"
+    },
+    {
+      "key": "track_05_title",
+      "value": "Training Seed",
+      "basis": "source-visible"
+    },
+    {
+      "key": "track_05_duration",
+      "value": "3:36",
+      "basis": "source-visible"
+    },
+    {
+      "key": "track_05_model",
+      "value": "V5.5",
+      "basis": "source-visible"
+    },
+    {
+      "key": "track_05_cover_badge",
+      "value": false,
+      "basis": "source-visible"
+    },
+    {
+      "key": "track_05_url",
+      "value": "https://suno.com/song/9261358c-8684-416a-99c3-3690f3e12044",
+      "basis": "source-visible"
+    },
+    {
+      "key": "track_06_title",
+      "value": "Nemotron 3 Ultra says:",
+      "basis": "source-visible"
+    },
+    {
+      "key": "track_06_duration",
+      "value": "3:10",
+      "basis": "source-visible"
+    },
+    {
+      "key": "track_06_model",
+      "value": "V5.5",
+      "basis": "source-visible"
+    },
+    {
+      "key": "track_06_cover_badge",
+      "value": false,
+      "basis": "source-visible"
+    },
+    {
+      "key": "track_06_url",
+      "value": "https://suno.com/song/46e39836-165e-4d1d-8107-6436e6126f14",
+      "basis": "source-visible"
+    },
+    {
+      "key": "track_07_title",
+      "value": "T5 Trinity",
+      "basis": "source-visible"
+    },
+    {
+      "key": "track_07_duration",
+      "value": "3:12",
+      "basis": "source-visible"
+    },
+    {
+      "key": "track_07_model",
+      "value": "V5.5",
+      "basis": "source-visible"
+    },
+    {
+      "key": "track_07_cover_badge",
+      "value": false,
+      "basis": "source-visible"
+    },
+    {
+      "key": "track_07_url",
+      "value": "https://suno.com/song/ada5f1e7-c64f-428d-829e-9669876a8485",
+      "basis": "source-visible"
+    },
+    {
+      "key": "track_08_title",
+      "value": "Gem-Eye",
+      "basis": "source-visible"
+    },
+    {
+      "key": "track_08_duration",
+      "value": "3:33",
+      "basis": "source-visible"
+    },
+    {
+      "key": "track_08_model",
+      "value": "V5.5",
+      "basis": "source-visible"
+    },
+    {
+      "key": "track_08_cover_badge",
+      "value": false,
+      "basis": "source-visible"
+    },
+    {
+      "key": "track_08_url",
+      "value": "https://suno.com/song/6f127b7e-1250-4cf7-a87f-670ec65e3af6",
+      "basis": "source-visible"
+    }
+  ],
+  "relations": [
+    {
+      "type": "links-to",
+      "target": "https://suno.com/song/787914ca-76cb-4dbb-ab95-ba114f48a954",
+      "basis": "source-visible",
+      "evidenceUrl": "https://suno.com/s/avMfwaqO6G2wTWWh"
+    },
+    {
+      "type": "links-to",
+      "target": "https://suno.com/song/066d48ee-af18-4667-8000-63a3287c3efa",
+      "basis": "source-visible",
+      "evidenceUrl": "https://suno.com/s/avMfwaqO6G2wTWWh"
+    },
+    {
+      "type": "links-to",
+      "target": "https://suno.com/song/17dbaf56-765a-44be-a06d-3798ecd1ad0b",
+      "basis": "source-visible",
+      "evidenceUrl": "https://suno.com/s/avMfwaqO6G2wTWWh"
+    },
+    {
+      "type": "links-to",
+      "target": "https://suno.com/song/8986ae71-c3fb-471e-88f9-20b90e88a578",
+      "basis": "source-visible",
+      "evidenceUrl": "https://suno.com/s/avMfwaqO6G2wTWWh"
+    },
+    {
+      "type": "links-to",
+      "target": "https://suno.com/song/9261358c-8684-416a-99c3-3690f3e12044",
+      "basis": "source-visible",
+      "evidenceUrl": "https://suno.com/s/avMfwaqO6G2wTWWh"
+    },
+    {
+      "type": "links-to",
+      "target": "https://suno.com/song/46e39836-165e-4d1d-8107-6436e6126f14",
+      "basis": "source-visible",
+      "evidenceUrl": "https://suno.com/s/avMfwaqO6G2wTWWh"
+    },
+    {
+      "type": "links-to",
+      "target": "https://suno.com/song/ada5f1e7-c64f-428d-829e-9669876a8485",
+      "basis": "source-visible",
+      "evidenceUrl": "https://suno.com/s/avMfwaqO6G2wTWWh"
+    },
+    {
+      "type": "links-to",
+      "target": "https://suno.com/song/6f127b7e-1250-4cf7-a87f-670ec65e3af6",
+      "basis": "source-visible",
+      "evidenceUrl": "https://suno.com/s/avMfwaqO6G2wTWWh"
+    }
+  ],
+  "interpretations": []
+}
