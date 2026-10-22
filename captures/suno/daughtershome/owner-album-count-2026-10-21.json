@@ -1,0 +1,11 @@
+{
+  "schema": "sia/owner-discography-count/v1",
+  "artist_handle": "daughtershome",
+  "platform": "Suno",
+  "owner_reported_on": "2026-10-21",
+  "total_albums_owner_reported": 21,
+  "evidence_basis": "Direct statement by creator in chat on 2026-10-21: 'we have 21 suno albums as of today'",
+  "scope": "owner's Suno albums; public/private breakdown and complete enumerated list not provided",
+  "caution": "Do not confuse total claimed Suno collection (21) with nine album records currently preserved in this SIA repo, which also span @thestaticcollective and @daughtershome; count is owner-reported, not verified from a complete platform listing.",
+  "associated_currently_observed_link": "https://suno.com/s/avMfwaqO6G2wTWWh"
+}
