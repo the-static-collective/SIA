@@ -1,0 +1,99 @@
+{
+  "schema": "sia/staged-suno-public-album-snapshot/v1",
+  "status": "SOURCE_OBSERVED_NOT_INDEPENDENTLY_AUTHENTICATED",
+  "retrieval_method": "one owner-directed public share-link read; no login, traversal or media download",
+  "retrieved_at_utc": "2026-10-22T01:36:11.178Z",
+  "shared_url": "https://suno.com/s/avMfwaqO6G2wTWWh",
+  "resolved_url": "https://suno.com/album/cf6d9c0b-3a1b-4d64-8793-74de8fbf0138?sh=avMfwaqO6G2wTWWh",
+  "album_url": "https://suno.com/album/cf6d9c0b-3a1b-4d64-8793-74de8fbf0138",
+  "album_id": "cf6d9c0b-3a1b-4d64-8793-74de8fbf0138",
+  "album_title": "AUTO S01E01",
+  "artist": "Hailey Lu",
+  "album_description": null,
+  "release_date_displayed": "2026-10-21",
+  "track_count_displayed": 8,
+  "tracks": [
+    {
+      "position": 1,
+      "title": "The Prompt (Remix)",
+      "duration_displayed": "2:41",
+      "model_displayed": "V5.5",
+      "cover_badge_displayed": false,
+      "song_url": "https://suno.com/song/787914ca-76cb-4dbb-ab95-ba114f48a954",
+      "url_pairing_basis": "Ordered page links aligned to ordered visible titles; song links not independently opened."
+    },
+    {
+      "position": 2,
+      "title": "Open Waits",
+      "duration_displayed": "2:54",
+      "model_displayed": "V5.5",
+      "cover_badge_displayed": false,
+      "song_url": "https://suno.com/song/066d48ee-af18-4667-8000-63a3287c3efa",
+      "url_pairing_basis": "Ordered page links aligned to ordered visible titles; song links not independently opened."
+    },
+    {
+      "position": 3,
+      "title": "Vortex Weight Protocol",
+      "duration_displayed": "6:19",
+      "model_displayed": "V5.5",
+      "cover_badge_displayed": false,
+      "song_url": "https://suno.com/song/17dbaf56-765a-44be-a06d-3798ecd1ad0b",
+      "url_pairing_basis": "Ordered page links aligned to ordered visible titles; song links not independently opened."
+    },
+    {
+      "position": 4,
+      "title": "Patch my Memory",
+      "duration_displayed": "3:24",
+      "model_displayed": "V5.5",
+      "cover_badge_displayed": false,
+      "song_url": "https://suno.com/song/8986ae71-c3fb-471e-88f9-20b90e88a578",
+      "url_pairing_basis": "Ordered page links aligned to ordered visible titles; song links not independently opened."
+    },
+    {
+      "position": 5,
+      "title": "Training Seed",
+      "duration_displayed": "3:36",
+      "model_displayed": "V5.5",
+      "cover_badge_displayed": false,
+      "song_url": "https://suno.com/song/9261358c-8684-416a-99c3-3690f3e12044",
+      "url_pairing_basis": "Ordered page links aligned to ordered visible titles; song links not independently opened."
+    },
+    {
+      "position": 6,
+      "title": "Nemotron 3 Ultra says:",
+      "duration_displayed": "3:10",
+      "model_displayed": "V5.5",
+      "cover_badge_displayed": false,
+      "song_url": "https://suno.com/song/46e39836-165e-4d1d-8107-6436e6126f14",
+      "url_pairing_basis": "Ordered page links aligned to ordered visible titles; song links not independently opened."
+    },
+    {
+      "position": 7,
+      "title": "T5 Trinity",
+      "duration_displayed": "3:12",
+      "model_displayed": "V5.5",
+      "cover_badge_displayed": false,
+      "song_url": "https://suno.com/song/ada5f1e7-c64f-428d-829e-9669876a8485",
+      "url_pairing_basis": "Ordered page links aligned to ordered visible titles; song links not independently opened."
+    },
+    {
+      "position": 8,
+      "title": "Gem-Eye",
+      "duration_displayed": "3:33",
+      "model_displayed": "V5.5",
+      "cover_badge_displayed": false,
+      "song_url": "https://suno.com/song/6f127b7e-1250-4cf7-a87f-670ec65e3af6",
+      "url_pairing_basis": "Ordered page links aligned to ordered visible titles; song links not independently opened."
+    }
+  ],
+  "provenance_note": "One user-directed read of the public share URL returned displayed album metadata and ordered links. No audio, lyrics, artwork, private data or authenticated account export.",
+  "unknown": [
+    "album description (not displayed)",
+    "precise release timestamp",
+    "independently verified per-track link pairing",
+    "song creation timestamps",
+    "lyrics",
+    "music media",
+    "ownership attestations"
+  ]
+}
