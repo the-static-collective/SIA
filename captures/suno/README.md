@@ -26,9 +26,9 @@ Later on **2026-10-13**, a read-only Suno album visit showed the nine-track sequ
 
 The earlier [five-song playlist](https://suno.com/playlist/e299cdb9-8d81-47a7-af94-3daf5042b647?sh=lkeMmJWbzdab5tn4) and the nine-song album are **different Suno entities**. We preserve their [observed overlap and ordering](blue-night-morning-history.md) as a separate history note, without claiming an authenticated conversion or production lineage.
 
-**Current committed collection:** 6 album observations / 52 album track positions (these are not guaranteed to be 52 distinct recordings).
+**Collection as of 2026-10-13:** 6 album observations / 52 album track positions (these are not guaranteed to be 52 distinct recordings).
 
-## Ingest all six into a local SIA vault
+## Ingest album observations into a local SIA vault
 
 ```bash
 npm run ingest:suno
@@ -48,3 +48,16 @@ npm run sia -- ingest captures/suno/readings/blue-night-morning-ai-reading.obser
 ```
 
 The prior six-album tally remains six **distinct album sources**; this is another time-stamped observation of the already listed album, not a seventh release.
+
+## Owner-directed Daughter's Home albums — October 21, 2026
+
+Two separately supplied public share links were read individually and source-labeled without an automated site crawl:
+
+| Album | Displayed date | Album tracks | Share link |
+| --- | --- | ---: | --- |
+| TESTIMONY S00E07 | 2026-10-21 | 7 | https://suno.com/s/Fi6dhIQQSiRJMhxj |
+| TESTIMONY S00E06 | 2026-10-21 | 6 | https://suno.com/s/dsog00YrzRFX08SW |
+
+The two new schema-valid records live in `albums/daughtershome-testimony-s00e07.observation.json` and `albums/daughtershome-testimony-s00e06.observation.json`, with full visible-field snapshots and owner notes in [`daughtershome/`](daughtershome/README.md). **The owner reports S00E07 released before S00E06**, despite both pages displaying the same calendar date; S00E06 opens another subchapter. This is preserved as owner chronology, not inferred from episode numbers or the public date labels.
+
+**Total committed collection now:** 8 album observation records / 65 album track positions (not asserted to be 65 unique recordings). `npm run ingest:suno` imports both new records along with the prior six; raw media and screenshot images are not committed.

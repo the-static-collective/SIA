@@ -1,0 +1,90 @@
+{
+  "schema": "sia/staged-suno-public-album-snapshot/v1",
+  "status": "SOURCE_OBSERVED_NOT_INDEPENDENTLY_AUTHENTICATED",
+  "retrieval_method": "one owner-directed public share-link read; no login, traversal or media download",
+  "retrieved_at_utc": "2026-10-22T01:01:16Z",
+  "shared_url": "https://suno.com/s/Fi6dhIQQSiRJMhxj",
+  "resolved_url": "https://suno.com/album/425951a5-71f1-498c-9326-81a269649926?sh=Fi6dhIQQSiRJMhxj",
+  "album_url": "https://suno.com/album/425951a5-71f1-498c-9326-81a269649926",
+  "album_id": "425951a5-71f1-498c-9326-81a269649926",
+  "album_title": "TESTIMONY S00E07",
+  "artist": "Hailey Lu",
+  "album_description": "end of pt. 0",
+  "release_date_displayed": "2026-10-21",
+  "track_count_displayed": 7,
+  "tracks": [
+    {
+      "position": 1,
+      "title": "Opening Faith (Lo-Fi Mix)",
+      "duration_displayed": "2:59",
+      "model_displayed": "V6-WILD",
+      "cover_badge_displayed": true,
+      "song_url": "https://suno.com/song/40c6fe15-e568-4821-9f37-25e215eafe3c",
+      "url_pairing_basis": "Ordered page links aligned to ordered visible titles; individual song URLs were not independently opened."
+    },
+    {
+      "position": 2,
+      "title": "Creep Mode",
+      "duration_displayed": "4:12",
+      "model_displayed": "V5.5",
+      "cover_badge_displayed": true,
+      "song_url": "https://suno.com/song/4ec403dc-b750-4f5b-bc44-629e6db7983d",
+      "url_pairing_basis": "Ordered page links aligned to ordered visible titles; individual song URLs were not independently opened."
+    },
+    {
+      "position": 3,
+      "title": "Kitchen Altar",
+      "duration_displayed": "3:46",
+      "model_displayed": "V5.5",
+      "cover_badge_displayed": false,
+      "song_url": "https://suno.com/song/208d87bb-14ec-4e67-80d3-c826b8394d28",
+      "url_pairing_basis": "Ordered page links aligned to ordered visible titles; individual song URLs were not independently opened."
+    },
+    {
+      "position": 4,
+      "title": "Jubilee Engine",
+      "duration_displayed": "4:41",
+      "model_displayed": "V5.5",
+      "cover_badge_displayed": false,
+      "song_url": "https://suno.com/song/34117cdc-d993-480e-a8a3-1e60878ebd7d",
+      "url_pairing_basis": "Ordered page links aligned to ordered visible titles; individual song URLs were not independently opened."
+    },
+    {
+      "position": 5,
+      "title": "Today in Your Ears (Funky Progressive Trap Gospel Phonk Remix)",
+      "duration_displayed": "3:35",
+      "model_displayed": "V6-WILD",
+      "cover_badge_displayed": true,
+      "song_url": "https://suno.com/song/79041ae7-8eaf-4a2b-9908-48d4327b74ea",
+      "url_pairing_basis": "Ordered page links aligned to ordered visible titles; individual song URLs were not independently opened."
+    },
+    {
+      "position": 6,
+      "title": "Not The Name (Remastered)",
+      "duration_displayed": "3:37",
+      "model_displayed": "V5.5",
+      "cover_badge_displayed": false,
+      "song_url": "https://suno.com/song/c03c9f3c-7edc-473c-954d-88864f28798a",
+      "url_pairing_basis": "Ordered page links aligned to ordered visible titles; individual song URLs were not independently opened."
+    },
+    {
+      "position": 7,
+      "title": "Quantum Code (Heartfelt Hybrid Mix)",
+      "duration_displayed": "3:27",
+      "model_displayed": "V6-WILD",
+      "cover_badge_displayed": true,
+      "song_url": "https://suno.com/song/010bc866-6eba-4b6b-8e2e-fdf64917d14c",
+      "url_pairing_basis": "Ordered page links aligned to ordered visible titles; individual song URLs were not independently opened."
+    }
+  ],
+  "provenance_note": "Page-reading service returned visible album text and ordered song links from this specific user-supplied share URL. No audio, lyrics, private data or proof of media rights captured.",
+  "unknown": [
+    "precise release time",
+    "independently verified track URL-to-title associations",
+    "creation timestamps",
+    "full lyrics",
+    "version ancestry",
+    "ownership documentation",
+    "audio"
+  ]
+}

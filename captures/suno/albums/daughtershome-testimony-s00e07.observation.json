@@ -1,0 +1,260 @@
+{
+  "schema": "sia/observation/v0",
+  "artifact": {
+    "externalId": "suno:album:425951a5-71f1-498c-9326-81a269649926",
+    "kind": "album",
+    "title": "TESTIMONY S00E07",
+    "url": "https://suno.com/album/425951a5-71f1-498c-9326-81a269649926",
+    "creator": "Hailey Lu"
+  },
+  "capture": {
+    "sourceUrl": "https://suno.com/s/Fi6dhIQQSiRJMhxj",
+    "evidenceUrl": "https://suno.com/s/Fi6dhIQQSiRJMhxj",
+    "observedAt": "2026-10-22T01:01:16Z",
+    "method": "manual-transcription",
+    "rights": "links-only",
+    "notes": "Single owner-directed public page read, captured as manual transcription via reading connector. Song URLs aligned by ordered link list (not individually opened). Suno-displayed date not independent verification. No media."
+  },
+  "facts": [
+    {
+      "key": "album_description",
+      "value": "end of pt. 0",
+      "basis": "source-visible"
+    },
+    {
+      "key": "release_date",
+      "value": "2026-10-21",
+      "basis": "source-visible"
+    },
+    {
+      "key": "track_count",
+      "value": 7,
+      "basis": "source-visible"
+    },
+    {
+      "key": "profile_handle",
+      "value": "daughtershome",
+      "basis": "source-visible"
+    },
+    {
+      "key": "track_01_title",
+      "value": "Opening Faith (Lo-Fi Mix)",
+      "basis": "source-visible"
+    },
+    {
+      "key": "track_01_duration",
+      "value": "2:59",
+      "basis": "source-visible"
+    },
+    {
+      "key": "track_01_model",
+      "value": "V6-WILD",
+      "basis": "source-visible"
+    },
+    {
+      "key": "track_01_cover_badge",
+      "value": true,
+      "basis": "source-visible"
+    },
+    {
+      "key": "track_01_url",
+      "value": "https://suno.com/song/40c6fe15-e568-4821-9f37-25e215eafe3c",
+      "basis": "source-visible"
+    },
+    {
+      "key": "track_02_title",
+      "value": "Creep Mode",
+      "basis": "source-visible"
+    },
+    {
+      "key": "track_02_duration",
+      "value": "4:12",
+      "basis": "source-visible"
+    },
+    {
+      "key": "track_02_model",
+      "value": "V5.5",
+      "basis": "source-visible"
+    },
+    {
+      "key": "track_02_cover_badge",
+      "value": true,
+      "basis": "source-visible"
+    },
+    {
+      "key": "track_02_url",
+      "value": "https://suno.com/song/4ec403dc-b750-4f5b-bc44-629e6db7983d",
+      "basis": "source-visible"
+    },
+    {
+      "key": "track_03_title",
+      "value": "Kitchen Altar",
+      "basis": "source-visible"
+    },
+    {
+      "key": "track_03_duration",
+      "value": "3:46",
+      "basis": "source-visible"
+    },
+    {
+      "key": "track_03_model",
+      "value": "V5.5",
+      "basis": "source-visible"
+    },
+    {
+      "key": "track_03_cover_badge",
+      "value": false,
+      "basis": "source-visible"
+    },
+    {
+      "key": "track_03_url",
+      "value": "https://suno.com/song/208d87bb-14ec-4e67-80d3-c826b8394d28",
+      "basis": "source-visible"
+    },
+    {
+      "key": "track_04_title",
+      "value": "Jubilee Engine",
+      "basis": "source-visible"
+    },
+    {
+      "key": "track_04_duration",
+      "value": "4:41",
+      "basis": "source-visible"
+    },
+    {
+      "key": "track_04_model",
+      "value": "V5.5",
+      "basis": "source-visible"
+    },
+    {
+      "key": "track_04_cover_badge",
+      "value": false,
+      "basis": "source-visible"
+    },
+    {
+      "key": "track_04_url",
+      "value": "https://suno.com/song/34117cdc-d993-480e-a8a3-1e60878ebd7d",
+      "basis": "source-visible"
+    },
+    {
+      "key": "track_05_title",
+      "value": "Today in Your Ears (Funky Progressive Trap Gospel Phonk Remix)",
+      "basis": "source-visible"
+    },
+    {
+      "key": "track_05_duration",
+      "value": "3:35",
+      "basis": "source-visible"
+    },
+    {
+      "key": "track_05_model",
+      "value": "V6-WILD",
+      "basis": "source-visible"
+    },
+    {
+      "key": "track_05_cover_badge",
+      "value": true,
+      "basis": "source-visible"
+    },
+    {
+      "key": "track_05_url",
+      "value": "https://suno.com/song/79041ae7-8eaf-4a2b-9908-48d4327b74ea",
+      "basis": "source-visible"
+    },
+    {
+      "key": "track_06_title",
+      "value": "Not The Name (Remastered)",
+      "basis": "source-visible"
+    },
+    {
+      "key": "track_06_duration",
+      "value": "3:37",
+      "basis": "source-visible"
+    },
+    {
+      "key": "track_06_model",
+      "value": "V5.5",
+      "basis": "source-visible"
+    },
+    {
+      "key": "track_06_cover_badge",
+      "value": false,
+      "basis": "source-visible"
+    },
+    {
+      "key": "track_06_url",
+      "value": "https://suno.com/song/c03c9f3c-7edc-473c-954d-88864f28798a",
+      "basis": "source-visible"
+    },
+    {
+      "key": "track_07_title",
+      "value": "Quantum Code (Heartfelt Hybrid Mix)",
+      "basis": "source-visible"
+    },
+    {
+      "key": "track_07_duration",
+      "value": "3:27",
+      "basis": "source-visible"
+    },
+    {
+      "key": "track_07_model",
+      "value": "V6-WILD",
+      "basis": "source-visible"
+    },
+    {
+      "key": "track_07_cover_badge",
+      "value": true,
+      "basis": "source-visible"
+    },
+    {
+      "key": "track_07_url",
+      "value": "https://suno.com/song/010bc866-6eba-4b6b-8e2e-fdf64917d14c",
+      "basis": "source-visible"
+    }
+  ],
+  "relations": [
+    {
+      "type": "links-to",
+      "target": "https://suno.com/song/40c6fe15-e568-4821-9f37-25e215eafe3c",
+      "basis": "source-visible",
+      "evidenceUrl": "https://suno.com/s/Fi6dhIQQSiRJMhxj"
+    },
+    {
+      "type": "links-to",
+      "target": "https://suno.com/song/4ec403dc-b750-4f5b-bc44-629e6db7983d",
+      "basis": "source-visible",
+      "evidenceUrl": "https://suno.com/s/Fi6dhIQQSiRJMhxj"
+    },
+    {
+      "type": "links-to",
+      "target": "https://suno.com/song/208d87bb-14ec-4e67-80d3-c826b8394d28",
+      "basis": "source-visible",
+      "evidenceUrl": "https://suno.com/s/Fi6dhIQQSiRJMhxj"
+    },
+    {
+      "type": "links-to",
+      "target": "https://suno.com/song/34117cdc-d993-480e-a8a3-1e60878ebd7d",
+      "basis": "source-visible",
+      "evidenceUrl": "https://suno.com/s/Fi6dhIQQSiRJMhxj"
+    },
+    {
+      "type": "links-to",
+      "target": "https://suno.com/song/79041ae7-8eaf-4a2b-9908-48d4327b74ea",
+      "basis": "source-visible",
+      "evidenceUrl": "https://suno.com/s/Fi6dhIQQSiRJMhxj"
+    },
+    {
+      "type": "links-to",
+      "target": "https://suno.com/song/c03c9f3c-7edc-473c-954d-88864f28798a",
+      "basis": "source-visible",
+      "evidenceUrl": "https://suno.com/s/Fi6dhIQQSiRJMhxj"
+    },
+    {
+      "type": "links-to",
+      "target": "https://suno.com/song/010bc866-6eba-4b6b-8e2e-fdf64917d14c",
+      "basis": "source-visible",
+      "evidenceUrl": "https://suno.com/s/Fi6dhIQQSiRJMhxj"
+    }
+  ],
+  "interpretations": []
+}

@@ -1,0 +1,61 @@
+{
+  "schema": "sia/owner-discography-notes/v1",
+  "status": "OWNER_REPORTED_AND_SCREENSHOT_OBSERVED_UNVERIFIED",
+  "artist_claim": "Hailey Lu",
+  "profile_url": "https://suno.com/@daughtershome",
+  "source": {
+    "type": "user-provided screenshot of Suno mobile Albums list",
+    "screenshot_filename": "1000019425.png",
+    "screenshot_sha256": "20dfca0c1d1b534e51c5de3efbba7cd90658c30fbfc536271320dae7a24c8324",
+    "image_file_committed": false,
+    "capture_time": null,
+    "notes": "Only seven visible album rows were transcribed; image itself remains private to conversation."
+  },
+  "visible_album_rows_top_to_bottom": [
+    "Rose Blue S03E02",
+    "AUTO S01E01",
+    "TESTIMONY S00E06",
+    "TESTIMONY S00E07",
+    "TESTIMONY S00E05",
+    "TESTIMONY S00E04",
+    "TESTIMONY S00E03"
+  ],
+  "verified_by_separately_supplied_album_links": [
+    {
+      "title": "TESTIMONY S00E07",
+      "album": "https://suno.com/album/425951a5-71f1-498c-9326-81a269649926",
+      "songs": 7,
+      "source": "https://suno.com/s/Fi6dhIQQSiRJMhxj",
+      "displayed_release_date": "2026-10-21"
+    },
+    {
+      "title": "TESTIMONY S00E06",
+      "album": "https://suno.com/album/10648f9e-af80-44d5-950b-1b601d5aa596",
+      "songs": 6,
+      "source": "https://suno.com/s/dsog00YrzRFX08SW",
+      "displayed_release_date": "2026-10-21"
+    }
+  ],
+  "owner_assertions": [
+    {
+      "basis": "owner statement, 2026-10-21",
+      "relation": "TESTIMONY S00E07 released before TESTIMONY S00E06",
+      "temporal_precision": "relative ordering only; Suno displays 2026-10-21 for both",
+      "note": "Do not infer hours or sort these albums by episode number."
+    },
+    {
+      "basis": "owner statement, 2026-10-21",
+      "kind": "creative-intent",
+      "subject": "TESTIMONY S00E06 / S00E07",
+      "note": "Owner arranged releases to give two experienced beginnings and endings; S00E06 begins another subchapter. This is creative intent, not independently verified platform metadata."
+    },
+    {
+      "basis": "owner statement, 2026-10-21",
+      "kind": "release-plan",
+      "plan": "Season 2 and S03E01 were ready to drop; Season 1 intended to follow them. The relative order of Season 2 and S03E01 was not specified.",
+      "status": "plan, not observed releases"
+    }
+  ],
+  "missing": "Screenshot cannot establish album URLs or song data for other five visible rows. Neither timestamp within October 21 nor creator authorization can be independently authenticated by this record.",
+  "inference_boundary": "User-supplied screenshot and owner statements are distinct from Suno page assertions, and from AI interpretations."
+}
