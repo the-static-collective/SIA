@@ -1,0 +1,47 @@
+{
+  "schema": "sia/observation/v0",
+  "artifact": {
+    "externalId": "suno:album:80bc0c4f-63c4-48da-a384-17674856c4a2",
+    "kind": "album",
+    "title": "Monday 62226 - the Wrecking Crew Vol.1",
+    "url": "https://suno.com/album/80bc0c4f-63c4-48da-a384-17674856c4a2",
+    "creator": "Hailey Lu"
+  },
+  "capture": {
+    "sourceUrl": "https://suno.com/@daughtershome?page=albums",
+    "evidenceUrl": "https://suno.com/@daughtershome?page=albums",
+    "observedAt": "2026-11-07T22:01:22Z",
+    "method": "manual-transcription",
+    "rights": "links-only",
+    "notes": "Owner-provided Suno saved HTML SHA-256 59966103bd28ef961755523db8060cf195c438d7e2e6522e527f257db5560203; transcribed from page state on 2026-11-07. This is one of first 20 loaded of 43 reported albums; 23 unseen. No tracklist, release date, audio or media rights verified."
+  },
+  "facts": [
+    {
+      "key": "album_list_position",
+      "value": 4,
+      "basis": "source-visible"
+    },
+    {
+      "key": "track_count",
+      "value": 14,
+      "basis": "source-visible"
+    },
+    {
+      "key": "total_duration_seconds",
+      "value": 2946,
+      "basis": "source-visible"
+    },
+    {
+      "key": "album_type",
+      "value": "lp",
+      "basis": "source-visible"
+    },
+    {
+      "key": "profile_handle",
+      "value": "daughtershome",
+      "basis": "source-visible"
+    }
+  ],
+  "relations": [],
+  "interpretations": []
+}

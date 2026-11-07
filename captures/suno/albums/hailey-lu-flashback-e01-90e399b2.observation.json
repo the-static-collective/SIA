@@ -1,0 +1,47 @@
+{
+  "schema": "sia/observation/v0",
+  "artifact": {
+    "externalId": "suno:album:90e399b2-1a79-427e-978c-9d76004fc36c",
+    "kind": "album",
+    "title": "FLASHBACK:E01",
+    "url": "https://suno.com/album/90e399b2-1a79-427e-978c-9d76004fc36c",
+    "creator": "Hailey Lu"
+  },
+  "capture": {
+    "sourceUrl": "https://suno.com/@daughtershome?page=albums",
+    "evidenceUrl": "https://suno.com/@daughtershome?page=albums",
+    "observedAt": "2026-11-07T22:01:22Z",
+    "method": "manual-transcription",
+    "rights": "links-only",
+    "notes": "Owner-provided Suno saved HTML SHA-256 59966103bd28ef961755523db8060cf195c438d7e2e6522e527f257db5560203; transcribed from page state on 2026-11-07. This is one of first 20 loaded of 43 reported albums; 23 unseen. No tracklist, release date, audio or media rights verified."
+  },
+  "facts": [
+    {
+      "key": "album_list_position",
+      "value": 19,
+      "basis": "source-visible"
+    },
+    {
+      "key": "track_count",
+      "value": 12,
+      "basis": "source-visible"
+    },
+    {
+      "key": "total_duration_seconds",
+      "value": 1901,
+      "basis": "source-visible"
+    },
+    {
+      "key": "album_type",
+      "value": "lp",
+      "basis": "source-visible"
+    },
+    {
+      "key": "profile_handle",
+      "value": "daughtershome",
+      "basis": "source-visible"
+    }
+  ],
+  "relations": [],
+  "interpretations": []
+}

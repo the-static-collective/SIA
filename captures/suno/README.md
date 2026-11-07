@@ -62,3 +62,9 @@ Three separately supplied public share links were read individually and source-l
 The initial two Daughter's Home schema-valid records live in `albums/daughtershome-testimony-s00e07.observation.json` and `albums/daughtershome-testimony-s00e06.observation.json`, with full visible-field snapshots and owner notes in [`daughtershome/`](daughtershome/README.md). **The owner reports S00E07 released before S00E06**, despite both pages displaying the same calendar date; S00E06 opens another subchapter. This is preserved as owner chronology, not inferred from episode numbers or the public date labels.
 
 **Total committed collection now:** 9 album observation records / 73 album track positions across two creator profiles (not asserted to be 73 unique recordings). `npm run ingest:suno` imports the three Daughter's Home album observations alongside the previous six; raw media and screenshot images are not committed. **Owner separately reports 21 Suno albums as of 2026-10-21**; SIA has not observed that complete 21-album collection. See [`daughtershome/owner-album-count-2026-10-21.json`](daughtershome/owner-album-count-2026-10-21.json).
+
+## Hailey Lu owner-provided saved page — 2026-11-07
+
+20 additional album source observations from a provided HTML profile capture are now stored as `hailey-lu-*.observation.json`. The page reports 43 total albums, but only the first 20 were available in its saved HTML. **23 albums remain unidentified**; SIA does not create speculative records. Captured fields include stable album ID, title, track count, duration total, LP/EP type and listing position—not track titles, release dates or media.
+
+See [saved-page inventory and snapshot byte hashes](../music/saved-html-inventory-2026-11-07.md). Earlier dated observations are unchanged, and `npm run ingest:suno` imports these alongside the older files.

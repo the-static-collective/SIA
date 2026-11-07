@@ -113,6 +113,15 @@ CREATIVE DESCENDANT ≠ ORIGINAL SOURCE
 
 Read [the capture and metabolism protocol](docs/PROTOCOL.md) and [the next gates](docs/ROADMAP.md).
 
+## 2026-11-07 owner-provided music catalogs
+
+A [saved HTML inventory](captures/music/saved-html-inventory-2026-11-07.md) now documents 20 Hailey Lu Suno album observations and 33 Bandcamp album observations. The Suno page reports 43 albums, but only its first 20 were present in the supplied file; **23 remain unobserved**. Older SIA observations remain in place and there are no invented release dates, media imports or asserted cross-platform album identities.
+
+```bash
+npm run ingest:suno
+npm run ingest:bandcamp
+```
+
 ## Build status
 
 Tests cover idempotent intake, canonical object hashing, source tampering, rights/basis validation, recipe replay, contradictory AI provenance, HOLD, human selection, fresh derived material, and an end-to-end CLI run. GitHub Actions executes them on every push and pull request.

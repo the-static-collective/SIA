@@ -1,0 +1,47 @@
+{
+  "schema": "sia/observation/v0",
+  "artifact": {
+    "externalId": "suno:album:fff50223-047b-45b1-a747-ee1bc7a2a495",
+    "kind": "album",
+    "title": "the Garden",
+    "url": "https://suno.com/album/fff50223-047b-45b1-a747-ee1bc7a2a495",
+    "creator": "Hailey Lu"
+  },
+  "capture": {
+    "sourceUrl": "https://suno.com/@daughtershome?page=albums",
+    "evidenceUrl": "https://suno.com/@daughtershome?page=albums",
+    "observedAt": "2026-11-07T22:01:22Z",
+    "method": "manual-transcription",
+    "rights": "links-only",
+    "notes": "Owner-provided Suno saved HTML SHA-256 59966103bd28ef961755523db8060cf195c438d7e2e6522e527f257db5560203; transcribed from page state on 2026-11-07. This is one of first 20 loaded of 43 reported albums; 23 unseen. No tracklist, release date, audio or media rights verified."
+  },
+  "facts": [
+    {
+      "key": "album_list_position",
+      "value": 20,
+      "basis": "source-visible"
+    },
+    {
+      "key": "track_count",
+      "value": 13,
+      "basis": "source-visible"
+    },
+    {
+      "key": "total_duration_seconds",
+      "value": 2659,
+      "basis": "source-visible"
+    },
+    {
+      "key": "album_type",
+      "value": "lp",
+      "basis": "source-visible"
+    },
+    {
+      "key": "profile_handle",
+      "value": "daughtershome",
+      "basis": "source-visible"
+    }
+  ],
+  "relations": [],
+  "interpretations": []
+}

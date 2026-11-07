@@ -1,0 +1,27 @@
+{
+  "schema": "sia/observation/v0",
+  "artifact": {
+    "externalId": "bandcamp:album:2061837845",
+    "kind": "album",
+    "title": "project0",
+    "url": "https://thestaticcollective.bandcamp.com/album/project0",
+    "creator": "the static collective"
+  },
+  "capture": {
+    "sourceUrl": "https://thestaticcollective.bandcamp.com/",
+    "evidenceUrl": "https://thestaticcollective.bandcamp.com/",
+    "observedAt": "2026-11-07T22:01:22Z",
+    "method": "manual-transcription",
+    "rights": "links-only",
+    "notes": "Owner-provided Bandcamp saved HTML SHA-256 90738d008fe12f6d65d4888c19b6fc3f36e5d12a07d3f387fb03ff7d672ce335; transcribed on 2026-11-07. Album title, item ID and URL came from catalog HTML. Saved filename suggests July-September but exact release dates are unknown. No tracks or media copied."
+  },
+  "facts": [
+    {
+      "key": "album_list_position",
+      "value": 3,
+      "basis": "source-visible"
+    }
+  ],
+  "relations": [],
+  "interpretations": []
+}
