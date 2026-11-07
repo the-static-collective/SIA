@@ -12,7 +12,9 @@ const folder = new URL('../captures/suno/albums/', import.meta.url);
 const importer = new URL('../scripts/ingest-suno-albums.mjs', import.meta.url).pathname;
 
 test('Suno album capture is a complete, bounded source-labeled collection', async () => {
-  const names = (await readdir(folder)).filter(name => name.endsWith('.observation.json')).sort();
+  const allNames = (await readdir(folder)).filter(name => name.endsWith('.observation.json')).sort();
+  assert.equal(allNames.length, 29);
+  const names = allNames.filter(name => !name.startsWith('hailey-lu-')); // original Oct 13/21 cohort
   assert.equal(names.length, 9);
   const records = await Promise.all(names.map(async name => {
     const raw = JSON.parse(await readFile(new URL(name, folder), 'utf8'));
@@ -55,10 +57,10 @@ test('Suno album importer writes an idempotent local SIA vault', async t => {
   const dir = await mkdtemp(join(tmpdir(), 'sia-suno-'));
   t.after(() => rm(dir, { recursive: true, force: true }));
   const run = () => JSON.parse(execFileSync(process.execPath, [importer, '--vault', dir], { encoding: 'utf8' }));
-  assert.equal(run().imported, 9);
-  assert.equal(run().imported, 9);
+  assert.equal(run().imported, 29);
+  assert.equal(run().imported, 29);
   const items = await catalog(dir);
-  assert.equal(items.length, 9);
+  assert.equal(items.length, 29);
   assert.ok(items.every(x => x.artifact.kind === 'album'));
 });
 
@@ -93,5 +95,28 @@ test('Blue Night Morning companion reading remains separately attributed and ing
     assert.equal((await catalog(dir)).length, 2, 'same album may have two distinct snapshots');
   } finally {
     await rm(dir, { recursive: true, force: true });
+  }
+});
+
+// A new profile capture does not replace the original 9 historical observations.
+test('Hailey Lu saved HTML accounts for 20 of 43 reported Suno albums without inventing the remaining 23', async () => {
+  const names = (await readdir(folder)).filter(name => name.startsWith('hailey-lu-') && name.endsWith('.observation.json')).sort();
+  assert.equal(names.length, 20);
+  const records = await Promise.all(names.map(async name =>
+    observation(JSON.parse(await readFile(new URL(name, folder), 'utf8')))
+  ));
+  assert.equal(new Set(records.map(r => r.artifact.externalId)).size, 20);
+  assert.equal(records.reduce((n,r) => n + r.facts.find(f => f.key === 'track_count').value, 0), 172);
+  const positions = records.map(r => r.facts.find(f => f.key === 'album_list_position').value).sort((a,b)=>a-b);
+  assert.deepEqual(positions, Array.from({length:20},(_,i)=>i+1));
+  for (const record of records) {
+    assert.equal(record.artifact.kind, 'album');
+    assert.equal(record.artifact.creator, 'Hailey Lu');
+    assert.equal(record.capture.sourceUrl, 'https://suno.com/@daughtershome?page=albums');
+    assert.equal(record.capture.rights, 'links-only');
+    assert.equal(record.capture.method, 'manual-transcription');
+    assert.ok(record.facts.every(f => f.basis === 'source-visible'));
+    assert.equal(record.facts.some(f => f.key === 'release_date'), false);
+    assert.ok(['lp','ep'].includes(record.facts.find(f => f.key === 'album_type').value));
   }
 });
