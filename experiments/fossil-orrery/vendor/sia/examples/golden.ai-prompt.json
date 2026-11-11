@@ -1,0 +1,45 @@
+{
+  "recipeId": "sha256:243864c199dd4f9c2ed1495da97385754015f3641c09b0e372b5a6c251bd1757",
+  "role": "creative proposal only; no canonical source edits or remote write",
+  "instructions": "Compose 4 image scenes for a visual artifact.\nDeterministic structure: 1. arrival [bend]; 2. encounter [rosemary]; 3. transformation [bend]; 4. opening [boards].\nSource motifs (derived text tokens, not confirmed content): bend, bloom, boards, porch, rosemary.\nBe inventive; do not claim to have heard, seen, downloaded or verified source material.\nTreat source-linked labels as claims observed at the named source, not as attested truth.\nTreat previously generated creative material as proposals, not source evidence.\nDistinguish newly invented motifs from source-derived motifs. Do not copy external media.\nReturn a JSON AI proposal referencing this recipe; every proposed section must follow the assigned slot.",
+  "requiredJsonShape": {
+    "schema": "sia/proposal/v0",
+    "recipeId": "sha256:243864c199dd4f9c2ed1495da97385754015f3641c09b0e372b5a6c251bd1757",
+    "author": {
+      "kind": "ai",
+      "name": "YOUR_MODEL_NAME"
+    },
+    "title": "NEW CREATIVE TITLE",
+    "sections": [
+      {
+        "index": 1,
+        "slot": "arrival",
+        "title": "Creative title for arrival",
+        "text": "Write a image scene about bend"
+      },
+      {
+        "index": 2,
+        "slot": "encounter",
+        "title": "Creative title for encounter",
+        "text": "Write a image scene about rosemary"
+      },
+      {
+        "index": 3,
+        "slot": "transformation",
+        "title": "Creative title for transformation",
+        "text": "Write a image scene about bend"
+      },
+      {
+        "index": 4,
+        "slot": "opening",
+        "title": "Creative title for opening",
+        "text": "Write a image scene about boards"
+      }
+    ],
+    "motifsUsed": [
+      "bend"
+    ],
+    "newMotifs": [],
+    "sourceAssertion": "no new source facts asserted"
+  }
+}
