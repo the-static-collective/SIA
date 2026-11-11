@@ -47,6 +47,18 @@ node src/cli.mjs compose 'sha256:<HARVESTED_ID>' \
 
 The example AI proposal was written for this experiment, not returned by a connected Suno or image-generation service. It is a **four-scene textual storyboard**, not a rendered image.
 
+## RELAY-001 — Fifth organ: the song becomes a history
+
+**Experimental review branch.** SIA now accepts an already-verified four-organ RELAY-001 local source packet as a fifth native contribution. It preserves one original song observation and five linked, content-addressed project events in the **existing SIA vault**. This neither republishes the MP3 nor converts a signed reLATTE HOLD to ADMIT.
+
+```
+LOADOUT BIND → GHoT EXECUTE → reLATTE RECEIVE/HOLD → webZ OBSERVE → SIA INDEX
+```
+
+The bounded importer validates the original MP3 and embedded derivative hashes; task/receipt identity; a cryptographic verification by the pinned webZ verifier; and the exact JSON evidence bytes before writing to SIA. Repeated intake is idempotent. An offline HTML timeline displays what each of five projects did and preserves **34 other candidates as proposed, not executed**.
+
+Run the synthetic-native CI workflow or read [RELAY001-FIFTH-ORGAN.md](docs/RELAY001-FIFTH-ORGAN.md) for the local source-packet command, explicit no-admission boundary, source provenance requirements, and security cautions. No connected Suno scraping, music copying, or production deployment is implied.
+
 ## Suno albums — first collected inventory
 
 Six albums (52 total album track positions) are now committed as immutable-input **observation records** under [`captures/suno/albums/`](captures/suno/README.md). The first five (43 track positions) were observed on The Static Collective's [Suno profile](https://suno.com/@thestaticcollective) on 2026-10-13. The sixth, [*Blue Night Morning*](https://suno.com/album/cab6b253-5f5b-4eb1-ae59-ac74c890b04d), was observed later that day and includes its nine displayed song titles, order and durations. Unobserved release dates, visibility and media rights remain unknown.

@@ -2,9 +2,10 @@ import { mkdir, readFile, readdir, writeFile } from 'node:fs/promises';
 import { join, resolve } from 'node:path';
 import { observation, verifyObservation, OBSERVATION_SCHEMA } from './observation.mjs';
 import { verifyDerived,DERIVED_SCHEMA } from './derived.mjs';
+import { verifyRelayEntry, RELAY_ENTRY_SCHEMA } from './relay-entry.mjs';
 
 const MAX_FILE=1024*1024;
-export const verifyObject=value=>value?.schema===OBSERVATION_SCHEMA?verifyObservation(value):value?.schema===DERIVED_SCHEMA?verifyDerived(value):(()=>{throw Error('Unknown vault object schema')})();
+export const verifyObject=value=>value?.schema===OBSERVATION_SCHEMA?verifyObservation(value):value?.schema===DERIVED_SCHEMA?verifyDerived(value):value?.schema===RELAY_ENTRY_SCHEMA?verifyRelayEntry(value):(()=>{throw Error('Unknown vault object schema')})();
 export async function readJson(path) {
   const {stat}=await import('node:fs/promises');
   if((await stat(path)).size>MAX_FILE) throw Error('Input exceeds 1 MiB');
