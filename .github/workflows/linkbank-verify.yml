@@ -1,0 +1,37 @@
+name: SIA Linkbank Print Verify
+on:
+  push:
+    paths:
+      - "src/linkbank.mjs"
+      - "site/**"
+      - "scripts/linkbank.mjs"
+      - "scripts/print-packets.py"
+      - "tests/linkbank.test.mjs"
+      - "tests/test_print_packets.py"
+      - ".github/workflows/linkbank-verify.yml"
+  pull_request:
+    paths:
+      - "src/linkbank.mjs"
+      - "site/**"
+      - "scripts/linkbank.mjs"
+      - "scripts/print-packets.py"
+      - "tests/linkbank.test.mjs"
+      - "tests/test_print_packets.py"
+      - ".github/workflows/linkbank-verify.yml"
+permissions:
+  contents: read
+jobs:
+  linkbank:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: npm test
+      - run: python -m pip install "qrcode==8.2"
+      - run: python -m unittest discover -s tests -p "test_print_packets.py" -v
+      - run: python scripts/print-packets.py --id radio-surprise-001 --base-url https://example.org/p/ --count 6 --out /tmp/little-packet-test.html
