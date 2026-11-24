@@ -1,0 +1,54 @@
+{
+  "schema": "fishbone/operator-plan/v1",
+  "title": "STATIC ID — Supabase + Cloudflare activation",
+  "site": "static-id",
+  "steps": [
+    {
+      "type": "open",
+      "url": "https://supabase.com/dashboard/project/kbhqacsdvjsstzyplqij/auth"
+    },
+    {
+      "type": "manual",
+      "note": "Sign into the existing pantry-gate Supabase project in the visible browser. Use normal account login; no credentials go into this plan."
+    },
+    {
+      "type": "manual",
+      "note": "In Authentication > URL Configuration, verify the Site URL matches the existing HUMKIN consent location. Don't change it casually because existing apps depend on it."
+    },
+    {
+      "type": "manual",
+      "note": "In Authentication > OAuth Server, enable OAuth 2.1 and use authorization path /oauth/consent/. Leave dynamic client registration disabled for this owner-only pilot."
+    },
+    {
+      "type": "manual",
+      "note": "Register a confidential OAuth client named Static Fileport with redirect https://fileport.abundent.org/api/static-id/callback and PKCE S256. Save client ID and secret privately."
+    },
+    {
+      "type": "open",
+      "url": "https://dash.cloudflare.com/"
+    },
+    {
+      "type": "manual",
+      "note": "Sign in if necessary. Open Workers & Pages > fileport > Settings > Variables and Secrets > Production. Preserve the existing FILEPORT_ADMIN_TOKEN recovery secret."
+    },
+    {
+      "type": "manual",
+      "note": "Add encrypted STATIC_ID_CLIENT_ID and STATIC_ID_CLIENT_SECRET from the registered OAuth app. Add STATIC_ID_OWNER_SUB from the existing verified Supabase Auth user UUID. Add a distinct STATIC_ID_COOKIE_KEY generated securely, not the admin token."
+    },
+    {
+      "type": "manual",
+      "note": "Redeploy Fileport. Check the sign-in on fileport.abundent.org; approve the Fileport OAuth consent only if the requesting application and redirect are exactly right."
+    },
+    {
+      "type": "open",
+      "url": "https://fileport.abundent.org/"
+    },
+    {
+      "type": "observe"
+    },
+    {
+      "type": "manual",
+      "note": "Test owner access, an expired session, and emergency admin recovery. Do not delete any established login until verified."
+    }
+  ]
+}
