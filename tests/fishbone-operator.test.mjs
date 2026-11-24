@@ -1,5 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
+import { readFile } from "node:fs/promises";
 import {
   PLAN_SCHEMA,allowedHosts,safeTarget,validatePlan,planFingerprint,
   profileName,approvedActionStep
@@ -74,4 +75,28 @@ test("plan fingerprint is stable and huge plan is refused",()=>{
   assert.equal(planFingerprint("test"),planFingerprint("test"));
   assert.notEqual(planFingerprint("test"),planFingerprint("Test"));
   assert.throws(()=>planFingerprint("x".repeat(32769)),/HOLD/);
+});
+
+test("shipped STATIC ID setup plan passes the actual operator validator",async()=>{
+  const path=new URL("../tools/fishbone/operator/plans/static-id.json",import.meta.url);
+  const raw=await readFile(path,"utf8");
+  const result=validatePlan(JSON.parse(raw));
+  assert.equal(result.site,"static-id");
+  assert.equal(result.steps.length,12);
+  assert.ok(result.steps.some(x=>x.type==="manual" && x.note.includes("Authentication > OAuth Server")));
+  assert.ok(result.steps.some(x=>x.type==="manual" && x.note.includes("Workers & Pages > fileport")));
+});
+
+test("manual instructions allow dashboard breadcrumbs but forbid terminal control characters",()=>{
+  for (const note of [
+    "Authentication > OAuth Server",
+    "Workers & Pages > fileport > Settings",
+    "Use <brackets> only as illustrative text",
+    "Authentication → URL Configuration"
+  ]) {
+    assert.equal(validatePlan({...plan(),steps:[{type:"manual",note}]}).steps[0].note,note);
+  }
+  for (const note of ["bad\u001b[2Joutput","bad\rreturn","bad\nnewline","bad\u007fdelete"]) {
+    assert.throws(()=>validatePlan({...plan(),steps:[{type:"manual",note}]}),/invalid manual step/);
+  }
 });
