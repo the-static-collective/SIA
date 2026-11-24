@@ -153,3 +153,9 @@ npm run fishbone -- history https://example.org/ --allow-domain example.org
 ```
 
 Both return source-bound **HOLD** evidence, not a published/canonical claim. The new `fishbone/change/v1` records include witness IDs, content hashes and bounded differences. See the [FISHBONE-002 runbook](tools/fishbone/README.md) for limitations.
+
+## FISHBONE 003 · Local signed-in operator (free TinyFish alternative)
+
+The existing public FISHBONE browser witness now has a separate **opt-in, human-approved local operator** for sites and admin dashboards that you own. This is built on Playwright and runs in a dedicated persistent Edge/Chromium browser profile on your own machine: **no TinyFish wallet or API credits**. The initial sample plan walks through STATIC ID activation on Supabase and Cloudflare. Browser sign-in and secrets stay local; scripted actions require affirmative approval.
+
+See [FISHBONE Operator — setup, Windows launchers, capabilities and security boundaries](tools/fishbone/operator/README.md). This is a local reviewed-plan runner, **not** remote agent access from ChatGPT, a hardened network sandbox, or an unattended browser automation service. The original public-capture and SIA admission policy remain separate.
