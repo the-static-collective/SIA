@@ -59,7 +59,7 @@ export function validatePlan(input) {
     }
     if (s.type === "manual") {
       if (!exactKeys(s,["type","note"]) || typeof s.note !== "string" ||
-          !s.note.trim() || s.note.length > 480 || /[\r\n<>]/.test(s.note))
+          !s.note.trim() || s.note.length > 480 || /[\x00-\x1f\x7f]/.test(s.note))
         throw Error("Operator HOLD: invalid manual step");
       return {type:"manual",note:s.note};
     }
