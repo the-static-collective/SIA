@@ -1,0 +1,28 @@
+{
+  "schema": "sia/observation/v0",
+  "artifact": {
+    "externalId": "suno:70b1d32e-21b6-4340-990d-1a4ef67cfc42",
+    "kind": "song",
+    "title": "Rosemary Bloom",
+    "url": "https://suno.com/song/70b1d32e-21b6-4340-990d-1a4ef67cfc42",
+    "creator": "The Static Collective"
+  },
+  "capture": {
+    "sourceUrl": "https://abundent.org/week/",
+    "evidenceUrl": "https://abundent.org/week/#letter-1",
+    "observedAt": "2026-10-13T11:00:00Z",
+    "method": "manual-transcription",
+    "rights": "links-only",
+    "notes": "Transcribed from published listening-letter document in webZ; no source audio or Suno API payload captured."
+  },
+  "facts": [
+    {"key":"listening_letter","value":"Begin again.","basis":"source-visible"},
+    {"key":"letter_number","value":1,"basis":"source-visible"}
+  ],
+  "relations": [
+    {"type":"published-pair","target":"https://suno.com/song/66ce822e-be59-4511-887b-61feda608300","basis":"source-visible","evidenceUrl":"https://abundent.org/week/#letter-1"}
+  ],
+  "interpretations": [
+    {"text":"Rosemary may suggest renewal or tending; this is an interpretation of the title, not evidence about the recorded audio.","by":"human"}
+  ]
+}

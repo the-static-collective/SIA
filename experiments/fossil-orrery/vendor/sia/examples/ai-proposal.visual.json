@@ -1,0 +1,27 @@
+{
+  "schema": "sia/proposal/v0",
+  "recipeId": "sha256:243864c199dd4f9c2ed1495da97385754015f3641c09b0e372b5a6c251bd1757",
+  "author": {"kind":"ai","name":"GPT-6 — illustrative proposal authored in chat"},
+  "title": "A Porch That Learns to Bloom",
+  "sections": [
+    {
+      "index": 1,"slot": "arrival","title": "The Bend",
+      "text": "Widescreen opening scene. An old porch at first light: a single board bows slightly beneath an unseen visitor. Hold on the weathered grain and the thin silver gap between boards. The movement is nearly imperceptible, as though architecture is listening. Warm, restrained, tactile imagery; no depicted performers or borrowed album artwork."
+    },
+    {
+      "index": 2,"slot": "encounter","title": "A Thread of Rosemary",
+      "text": "A rosemary sprig emerges from a small ceramic cup set on the porch rail. Its shadow crosses the wood like a line of handwriting. The image invites attention to a particular without pretending the source recording contains this scene. Sound, if added later, must be newly composed or separately licensed."
+    },
+    {
+      "index": 3,"slot": "transformation","title": "What Gives Without Breaking",
+      "text": "Close on the bowed board. Its curve becomes the rim of the cup, then the arc of a doorway; three forms sharing one geometry. A deterministic match-cut schedule could govern the transition, while individual textures remain creative decisions. The bend is not damage alone: it offers room."
+    },
+    {
+      "index": 4,"slot": "opening","title": "Boards Become Lines",
+      "text": "The floorboards extend beyond the porch into an abstract branching path, each seam a possible next arrival. No single branch is privileged. The camera stays where it is; the pathways move into view. Fade on a vacant chair, leaving the invitation unfinished for the next visitor."
+    }
+  ],
+  "motifsUsed": ["bend","rosemary","boards","porch"],
+  "newMotifs": ["ceramic cup","unseen visitor","branching path","vacant chair"],
+  "sourceAssertion": "no new source facts asserted"
+}

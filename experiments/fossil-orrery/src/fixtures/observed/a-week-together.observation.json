@@ -1,0 +1,32 @@
+{
+  "schema": "sia/observation/v0",
+  "artifact": {
+    "externalId": "suno:album:7c2ca64a-32ed-4477-a7cb-e00d1a14c9bf",
+    "kind": "album",
+    "title": "a week together",
+    "url": "https://suno.com/album/7c2ca64a-32ed-4477-a7cb-e00d1a14c9bf",
+    "creator": "The Static Collective"
+  },
+  "capture": {
+    "sourceUrl": "https://suno.com/@thestaticcollective",
+    "evidenceUrl": "https://suno.com/@thestaticcollective",
+    "observedAt": "2026-10-13T15:15:52Z",
+    "method": "manual-transcription",
+    "rights": "links-only",
+    "notes": "Read-only album listing observed through TinyFish on 2026-10-13. Album URL, title and track count transcribed from the source profile; release date and visibility not displayed. No audio or artwork downloaded."
+  },
+  "facts": [
+    {
+      "key": "track_count",
+      "value": 14,
+      "basis": "source-visible"
+    },
+    {
+      "key": "album_list_position",
+      "value": 4,
+      "basis": "source-visible"
+    }
+  ],
+  "relations": [],
+  "interpretations": []
+}

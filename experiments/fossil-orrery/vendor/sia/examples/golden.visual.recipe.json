@@ -1,0 +1,133 @@
+{
+  "id": "sha256:243864c199dd4f9c2ed1495da97385754015f3641c09b0e372b5a6c251bd1757",
+  "schema": "sia/recipe/v0",
+  "engine": "sia/metabolizer-001",
+  "seed": 325,
+  "mode": "visual",
+  "sources": [
+    {
+      "id": "sha256:8dbe6070ba203c1799ea2e1fc17b4c755bf34824c18953c28570fe36408acb98",
+      "title": "Rosemary Bloom",
+      "url": "https://suno.com/song/70b1d32e-21b6-4340-990d-1a4ef67cfc42",
+      "kind": "song",
+      "captureMethod": "manual-transcription",
+      "captureUrl": "https://abundent.org/week/",
+      "rights": "links-only",
+      "evidenceClass": "source-claimed"
+    },
+    {
+      "id": "sha256:91d83310050e90db9dae15ef62d934d8aaea4f0950af128036d64feb19a3f229",
+      "title": "Where the Porch Boards Bend",
+      "url": "https://suno.com/song/66ce822e-be59-4511-887b-61feda608300",
+      "kind": "song",
+      "captureMethod": "manual-transcription",
+      "captureUrl": "https://abundent.org/week/",
+      "rights": "links-only",
+      "evidenceClass": "source-claimed"
+    }
+  ],
+  "atoms": [
+    {
+      "token": "bend",
+      "derivedFrom": [
+        {
+          "sourceId": "sha256:91d83310050e90db9dae15ef62d934d8aaea4f0950af128036d64feb19a3f229",
+          "path": "title",
+          "basis": "source-claimed"
+        }
+      ]
+    },
+    {
+      "token": "bloom",
+      "derivedFrom": [
+        {
+          "sourceId": "sha256:8dbe6070ba203c1799ea2e1fc17b4c755bf34824c18953c28570fe36408acb98",
+          "path": "title",
+          "basis": "source-claimed"
+        }
+      ]
+    },
+    {
+      "token": "boards",
+      "derivedFrom": [
+        {
+          "sourceId": "sha256:91d83310050e90db9dae15ef62d934d8aaea4f0950af128036d64feb19a3f229",
+          "path": "title",
+          "basis": "source-claimed"
+        }
+      ]
+    },
+    {
+      "token": "porch",
+      "derivedFrom": [
+        {
+          "sourceId": "sha256:91d83310050e90db9dae15ef62d934d8aaea4f0950af128036d64feb19a3f229",
+          "path": "title",
+          "basis": "source-claimed"
+        }
+      ]
+    },
+    {
+      "token": "rosemary",
+      "derivedFrom": [
+        {
+          "sourceId": "sha256:8dbe6070ba203c1799ea2e1fc17b4c755bf34824c18953c28570fe36408acb98",
+          "path": "title",
+          "basis": "source-claimed"
+        }
+      ]
+    }
+  ],
+  "relations": [
+    {
+      "from": "sha256:8dbe6070ba203c1799ea2e1fc17b4c755bf34824c18953c28570fe36408acb98",
+      "type": "published-pair",
+      "target": "https://suno.com/song/66ce822e-be59-4511-887b-61feda608300",
+      "evidenceUrl": "https://abundent.org/week/#letter-1",
+      "basis": "source-visible"
+    },
+    {
+      "from": "sha256:91d83310050e90db9dae15ef62d934d8aaea4f0950af128036d64feb19a3f229",
+      "type": "published-pair",
+      "target": "https://suno.com/song/70b1d32e-21b6-4340-990d-1a4ef67cfc42",
+      "evidenceUrl": "https://abundent.org/week/#letter-1",
+      "basis": "source-visible"
+    }
+  ],
+  "slots": [
+    {
+      "index": 1,
+      "name": "arrival",
+      "focus": "bend",
+      "supportingSourceId": "sha256:91d83310050e90db9dae15ef62d934d8aaea4f0950af128036d64feb19a3f229"
+    },
+    {
+      "index": 2,
+      "name": "encounter",
+      "focus": "rosemary",
+      "supportingSourceId": "sha256:91d83310050e90db9dae15ef62d934d8aaea4f0950af128036d64feb19a3f229"
+    },
+    {
+      "index": 3,
+      "name": "transformation",
+      "focus": "bend",
+      "supportingSourceId": "sha256:8dbe6070ba203c1799ea2e1fc17b4c755bf34824c18953c28570fe36408acb98"
+    },
+    {
+      "index": 4,
+      "name": "opening",
+      "focus": "boards",
+      "supportingSourceId": "sha256:91d83310050e90db9dae15ef62d934d8aaea4f0950af128036d64feb19a3f229"
+    }
+  ],
+  "constraints": {
+    "exactSectionCount": 4,
+    "maxSectionTitleChars": 100,
+    "maxSectionTextChars": 750,
+    "maxNovelMotifs": 12,
+    "unit": "image scene",
+    "treatment": "source claims are not verified truths; creative additions must remain marked as proposal",
+    "assetPolicy": "references-only"
+  },
+  "brief": "Compose 4 image scenes for a visual artifact.\nDeterministic structure: 1. arrival [bend]; 2. encounter [rosemary]; 3. transformation [bend]; 4. opening [boards].\nSource motifs (derived text tokens, not confirmed content): bend, bloom, boards, porch, rosemary.\nBe inventive; do not claim to have heard, seen, downloaded or verified source material.\nTreat source-linked labels as claims observed at the named source, not as attested truth.\nTreat previously generated creative material as proposals, not source evidence.\nDistinguish newly invented motifs from source-derived motifs. Do not copy external media.\nReturn a JSON AI proposal referencing this recipe; every proposed section must follow the assigned slot."
+}

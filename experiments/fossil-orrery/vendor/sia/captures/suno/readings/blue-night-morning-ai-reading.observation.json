@@ -1,0 +1,161 @@
+{
+  "schema": "sia/observation/v0",
+  "artifact": {
+    "externalId": "suno:album:cab6b253-5f5b-4eb1-ae59-ac74c890b04d",
+    "kind": "album",
+    "title": "Blue Night Morning",
+    "url": "https://suno.com/album/cab6b253-5f5b-4eb1-ae59-ac74c890b04d",
+    "creator": "The Static Collective"
+  },
+  "capture": {
+    "sourceUrl": "https://suno.com/album/cab6b253-5f5b-4eb1-ae59-ac74c890b04d",
+    "evidenceUrl": "https://suno.com/album/cab6b253-5f5b-4eb1-ae59-ac74c890b04d",
+    "observedAt": "2026-10-14T00:23:46.746Z",
+    "method": "manual-transcription",
+    "rights": "links-only",
+    "notes": "Separate companion observation: Suno album's nine song URLs and individual public song-page style labels reviewed by assistant. AI album reading stays in interpretations; no audio audition, media download, intent or rights verification."
+  },
+  "facts": [
+    {
+      "key": "track_01_song_url",
+      "value": "https://suno.com/song/c4314a65-e089-4df6-89c9-269a76885f54",
+      "basis": "source-visible"
+    },
+    {
+      "key": "track_01_displayed_style",
+      "value": "Intimate indie folk ballad",
+      "basis": "source-visible"
+    },
+    {
+      "key": "track_02_song_url",
+      "value": "https://suno.com/song/929118de-e756-4a48-a015-53380a6d21e9",
+      "basis": "source-visible"
+    },
+    {
+      "key": "track_02_displayed_style",
+      "value": "bedroom pop, downtempo",
+      "basis": "source-visible"
+    },
+    {
+      "key": "track_03_song_url",
+      "value": "https://suno.com/song/d0389fa8-ef0e-4dd2-aea6-a5501b789012",
+      "basis": "source-visible"
+    },
+    {
+      "key": "track_03_displayed_style",
+      "value": "lo-fi, psychedelic, country-electronica",
+      "basis": "source-visible"
+    },
+    {
+      "key": "track_04_song_url",
+      "value": "https://suno.com/song/e4daf2b6-e244-4688-a89d-5b23ae3586e8",
+      "basis": "source-visible"
+    },
+    {
+      "key": "track_04_displayed_style",
+      "value": "experimental hip-hop, boom-bap, jazz",
+      "basis": "source-visible"
+    },
+    {
+      "key": "track_05_song_url",
+      "value": "https://suno.com/song/458dd3ec-9408-4565-a0ea-09d3ae41c42a",
+      "basis": "source-visible"
+    },
+    {
+      "key": "track_05_displayed_style",
+      "value": "boom-bap hip-hop",
+      "basis": "source-visible"
+    },
+    {
+      "key": "track_06_song_url",
+      "value": "https://suno.com/song/86bf1f88-0c4f-45d9-b87e-6e5371f184ca",
+      "basis": "source-visible"
+    },
+    {
+      "key": "track_06_displayed_style",
+      "value": "boom bap hip hop, lo-fi, grunge",
+      "basis": "source-visible"
+    },
+    {
+      "key": "track_07_song_url",
+      "value": "https://suno.com/song/18af6a6f-3cb2-408c-a824-317ffa93fc7d",
+      "basis": "source-visible"
+    },
+    {
+      "key": "track_07_displayed_style",
+      "value": "experimental hip-hop, swing bounce, 90s phonk",
+      "basis": "source-visible"
+    },
+    {
+      "key": "track_08_song_url",
+      "value": "https://suno.com/song/ccad22bc-0657-4ffe-be40-3430d0cc0c1a",
+      "basis": "source-visible"
+    },
+    {
+      "key": "track_08_displayed_style",
+      "value": "lo-fi, psychedelic, country-electronica",
+      "basis": "source-visible"
+    },
+    {
+      "key": "track_09_song_url",
+      "value": "https://suno.com/song/2c97d1e2-72e7-47f3-b31f-cf79cc499bd2",
+      "basis": "source-visible"
+    },
+    {
+      "key": "track_09_displayed_style",
+      "value": "pop",
+      "basis": "source-visible"
+    }
+  ],
+  "relations": [],
+  "interpretations": [
+    {
+      "text": "Proposed LP reading, not platform format: tracks 1–5 form Side A (14:03), tracks 6–9 Side B (12:47). Total 26:50 is arithmetic on displayed times, not measured playback.",
+      "by": "ai"
+    },
+    {
+      "text": "Tracks 1–2 establish a still domestic morning and an intimate second-person address; 'home' is presented as shared presence rather than property or location.",
+      "by": "ai"
+    },
+    {
+      "text": "Track 3 changes the premise from receiving light to making color together. Gray, mud and rain persist; the protagonists choose how to meet them.",
+      "by": "ai"
+    },
+    {
+      "text": "Track 4 travels through pines, creek and porch traces; repeated finding becomes the lyric's return mechanism. This is a reading of text, not literal biography.",
+      "by": "ai"
+    },
+    {
+      "text": "Track 5 is the shortest at 1:52 and functions as a plausible side hinge: needle dust, tape hiss, flute, bass and underground currents replace the explicit search narrative.",
+      "by": "ai"
+    },
+    {
+      "text": "Track 6 converts that underground/current vocabulary into open water, surf and the return to 'you'; Side B begins in motion rather than arrival.",
+      "by": "ai"
+    },
+    {
+      "text": "Tracks 7–8 enlarge the scale from a makeshift home to blooming and sunlight; their repeated 'we' frames joy as something made with another person.",
+      "by": "ai"
+    },
+    {
+      "text": "Track 9 deliberately ends in a messy kitchen, jam and toastbread rather than triumph. 'don't fix the moment' (lyric) suggests allowing imperfect intimacy to remain.",
+      "by": "ai"
+    },
+    {
+      "text": "The album opens at waking and closes at going to bed: a suggested day-shaped loop, though no creator-stated concept or technical track ancestry was verified.",
+      "by": "ai"
+    },
+    {
+      "text": "Recurring words and objects include blue, bloom, hands, home, pines, water, rain, light, kettles, bread, rooms and 'you'. Cross-track motif resemblance is not evidence of intended narrative causality.",
+      "by": "ai"
+    },
+    {
+      "text": "Public song-page style labels shift from folk/bedroom pop toward psychedelic country-electronica, jazz/boom-bap and grunge/phonk, then pop. This is a metadata comparison, not an audition of sound.",
+      "by": "ai"
+    },
+    {
+      "text": "One song remains a source artifact; the nine-track order is an album-level composition. This proposal describes the reading of that order, not an authoritative or released side division.",
+      "by": "ai"
+    }
+  ]
+}

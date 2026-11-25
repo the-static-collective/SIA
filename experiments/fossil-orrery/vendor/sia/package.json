@@ -1,0 +1,16 @@
+{
+  "name": "@static-collective/sia",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "test": "node --test tests/*.test.mjs",
+    "demo": "node src/cli.mjs demo --vault .sia-demo",
+    "sia": "node src/cli.mjs",
+    "ingest:suno": "node scripts/ingest-suno-albums.mjs"
+  },
+  "license": "MIT"
+}

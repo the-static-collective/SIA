@@ -1,0 +1,32 @@
+{
+  "schema": "sia/observation/v0",
+  "artifact": {
+    "externalId": "suno:album:c504141a-0e4f-47cb-a4e8-89f242343200",
+    "kind": "album",
+    "title": "midwestern post-internet ecclesiastical dadcore",
+    "url": "https://suno.com/album/c504141a-0e4f-47cb-a4e8-89f242343200",
+    "creator": "The Static Collective"
+  },
+  "capture": {
+    "sourceUrl": "https://suno.com/@thestaticcollective",
+    "evidenceUrl": "https://suno.com/@thestaticcollective",
+    "observedAt": "2026-10-13T15:15:52Z",
+    "method": "manual-transcription",
+    "rights": "links-only",
+    "notes": "Read-only album listing observed through TinyFish on 2026-10-13. Album URL, title and track count transcribed from the source profile; release date and visibility not displayed. No audio or artwork downloaded."
+  },
+  "facts": [
+    {
+      "key": "track_count",
+      "value": 9,
+      "basis": "source-visible"
+    },
+    {
+      "key": "album_list_position",
+      "value": 5,
+      "basis": "source-visible"
+    }
+  ],
+  "relations": [],
+  "interpretations": []
+}
