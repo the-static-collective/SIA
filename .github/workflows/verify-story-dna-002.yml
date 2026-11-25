@@ -1,0 +1,23 @@
+name: Story DNA 002 Experimental Verify
+on:
+  push:
+    paths:
+      - 'experiments/story-dna-002/**'
+      - '.github/workflows/verify-story-dna-002.yml'
+  pull_request:
+    paths:
+      - 'experiments/story-dna-002/**'
+      - '.github/workflows/verify-story-dna-002.yml'
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --test experiments/story-dna-002/test.mjs
+      - run: node experiments/story-dna-002/cli.mjs echo 325 > /tmp/story-dna-echo.json
+      - run: node experiments/story-dna-002/cli.mjs fork 325 > /tmp/story-dna-fork.json
